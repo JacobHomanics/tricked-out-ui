@@ -9,7 +9,7 @@ namespace JacobHomanics.UI
 
         void Update()
         {
-            Display(properties.text, properties.displayType, Current, Max, properties.format);
+            Display(properties.text, properties.displayType, Current, Max, properties.format, properties.clampAtZero, properties.clampAtMax);
         }
     }
 }

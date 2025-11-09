@@ -11,8 +11,8 @@ namespace JacobHomanics.UI
 
         void Update()
         {
-            Display(leftProperties.text, leftProperties.displayType, Current, Max, leftProperties.format);
-            Display(rightProperties.text, rightProperties.displayType, Current, Max, rightProperties.format);
+            Display(leftProperties.text, leftProperties.displayType, Current, Max, leftProperties.format, leftProperties.clampAtZero, leftProperties.clampAtMax);
+            Display(rightProperties.text, rightProperties.displayType, Current, Max, rightProperties.format, rightProperties.clampAtZero, rightProperties.clampAtMax);
         }
 
     }

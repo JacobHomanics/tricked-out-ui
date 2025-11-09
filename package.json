@@ -1,6 +1,6 @@
 {
-  "name": "com.jacobhomanics.ui",
-  "version": "0.0.1",
+  "name": "com.jacobhomanics.ui-toolkit",
+  "version": "0.0.2",
   "displayName": "UI Toolkit",
   "description": "A toolkit for working with the Unity UI",
   "unity": "6000.0",

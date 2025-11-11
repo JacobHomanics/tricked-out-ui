@@ -43,41 +43,6 @@ namespace JacobHomanics.UI
             Color flashColor = Color.Lerp(flashColor1, flashColor2, flashValue);
             image.color = flashColor;
             image.fillAmount = current / max;
-
-            // if (reverseFill)
-            //     healthPercent = (max - current) / max;
-            // else
-            //     healthPercent = current / max;
-
-
-            // healthPercent = Mathf.Clamp01(healthPercent);
-
-            // if (reverseFill)
-            //     image.enabled = healthPercent > thresholdPercent;
-            // else
-            //     image.enabled = healthPercent < thresholdPercent;
-
-
-            // if (reverseFill)
-            // {
-            //     if (healthPercent <= thresholdPercent)
-            //     {
-            //         float flashValue = Mathf.Sin(Time.time * flashSpeed) * 0.5f + 0.5f;
-            //         Color flashColor = Color.Lerp(flashColor1, flashColor2, flashValue);
-            //         image.color = flashColor;
-            //         image.fillAmount = (max - current) / max;
-
-            //     }
-            // }
-            // else
-            // if (healthPercent >= thresholdPercent)
-            // {
-            //     float flashValue = Mathf.Sin(Time.time * flashSpeed) * 0.5f + 0.5f;
-            //     Color flashColor = Color.Lerp(flashColor1, flashColor2, flashValue);
-            //     image.color = flashColor;
-            //     image.fillAmount = current / max;
-
-            // }
         }
 
     }

@@ -31,11 +31,11 @@ namespace JacobHomanics.TrickedOutUI
 
         void Update()
         {
-            backgroundFillFeature.backgroundFill.fillAmount = HandleValueChange(Current, backgroundFillFeature, backgroundFillFeature.backgroundFill.fillAmount, backgroundFillFeature.keepSizeConsistent, ref previousValue, Max);
+            backgroundFillFeature.backgroundFill.fillAmount = HandleValueChange(Current, backgroundFillFeature.backgroundFill.fillAmount, backgroundFillFeature.keepSizeConsistent, ref previousValue, Max, backgroundFillFeature.delay, backgroundFillFeature.speedCurve, backgroundFillFeature.animationSpeed);
             backgroundFillFeature.backgroundFill.fillAmount = UpdateBackgroundFillAnimation(backgroundFillFeature.backgroundFill.fillAmount, Max);
         }
 
-        public float HandleValueChange(float newValue, BackgroundFillFeature bgFeature, float fillAmount, bool keepSizeConsistent, ref float previousValue, float max)
+        public float HandleValueChange(float newValue, float fillAmount, bool keepSizeConsistent, ref float previousValue, float max, float delay, AnimationCurve speedCurve, float animationSpeed)
         {
             if (Mathf.Abs(newValue - previousValue) < 0.001f)
                 return fillAmount;
@@ -79,7 +79,7 @@ namespace JacobHomanics.TrickedOutUI
                 // HP goes down or stays same - animate from start position
                 // Set up animation state
                 var fa = fillAmount;
-                StartBackgroundFillAnimation(startValue, newValue, max, bgFeature.delay, bgFeature.speedCurve, bgFeature.animationSpeed, ref fa);
+                StartBackgroundFillAnimation(startValue, newValue, max, delay, speedCurve, animationSpeed, ref fa);
                 fillAmount = fa;
             }
 
@@ -122,7 +122,6 @@ namespace JacobHomanics.TrickedOutUI
                 return fillAmount;
             }
 
-
             // Update animation
             animationElapsed += Time.deltaTime;
             float t = Mathf.Clamp01(animationElapsed / animationDuration);
@@ -139,14 +138,6 @@ namespace JacobHomanics.TrickedOutUI
 
             return fillAmount;
         }
-
-        // public static void SetBackgroundFillAmount(BackgroundFillFeature bgFeature, float amount, float max)
-        // {
-        //     if (bgFeature != null && bgFeature.backgroundFill != null)
-        //     {
-        //         bgFeature.backgroundFill.fillAmount = SetBackgroundFillAmount(amount, max);
-        //     }
-        // }
 
         public float Normalize(float amount, float max)
         {

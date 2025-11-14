@@ -6,12 +6,11 @@ namespace JacobHomanics.TrickedOutUI
     /// <summary>
     /// MonoBehaviour component that handles animated background fill based on value changes.
     /// </summary>
-    public class BackgroundFillFeatureComponent : BaseCurrentMaxComponent
+    public abstract class BackgroundFillFeatureComponent : BaseCurrentMaxComponent
     {
         [System.Serializable]
         public class BackgroundFillFeature
         {
-            public Image backgroundFill;
             public bool keepSizeConsistent = true;
             public float animationSpeed = 10;
             public AnimationCurve speedCurve = AnimationCurve.EaseInOut(0f, 0.3f, 1f, 16f);
@@ -20,20 +19,14 @@ namespace JacobHomanics.TrickedOutUI
 
         public BackgroundFillFeature backgroundFillFeature;
 
-        private float previousValue;
+        protected float previousValue;
 
-        private bool isAnimating = false;
-        private float animationFromValue;
-        private float animationToValue;
-        private float animationElapsed;
-        private float animationDuration;
-        private float animationDelayRemaining;
-
-        void Update()
-        {
-            backgroundFillFeature.backgroundFill.fillAmount = HandleValueChange(Current, backgroundFillFeature.backgroundFill.fillAmount, backgroundFillFeature.keepSizeConsistent, ref previousValue, Max, backgroundFillFeature.delay, backgroundFillFeature.speedCurve, backgroundFillFeature.animationSpeed);
-            backgroundFillFeature.backgroundFill.fillAmount = UpdateBackgroundFillAnimation(backgroundFillFeature.backgroundFill.fillAmount, Max);
-        }
+        protected bool isAnimating = false;
+        protected float animationFromValue;
+        protected float animationToValue;
+        protected float animationElapsed;
+        protected float animationDuration;
+        protected float animationDelayRemaining;
 
         public float HandleValueChange(float newValue, float fillAmount, bool keepSizeConsistent, ref float previousValue, float max, float delay, AnimationCurve speedCurve, float animationSpeed)
         {

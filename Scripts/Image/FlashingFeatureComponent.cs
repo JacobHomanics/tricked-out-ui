@@ -7,9 +7,8 @@ namespace JacobHomanics.TrickedOutUI
     /// <summary>
     /// MonoBehaviour component that creates a flashing effect when a value falls below a threshold.
     /// </summary>
-    public class FlashingFeatureComponent : BaseCurrentMaxComponent
+    public abstract class FlashingFeatureComponent : BaseCurrentMaxComponent
     {
-        public Image flashImage;
         public float thresholdPercent = 0.2f;
         public Color flashColor1 = Color.red;
         public Color flashColor2 = Color.white;
@@ -21,15 +20,6 @@ namespace JacobHomanics.TrickedOutUI
         }
 
         public ThresholdType thresholdType;
-
-        void Update()
-        {
-            flashImage.enabled = IsEnabled(thresholdType, Current, Max, thresholdPercent);
-            flashImage.color = CalcColor(flashSpeed, flashColor1, flashColor2);
-            flashImage.fillAmount = Normalize(Current, Max);
-
-
-        }
 
         public static bool IsEnabled(ThresholdType thresholdType, float current, float max, float thresholdPercent)
         {

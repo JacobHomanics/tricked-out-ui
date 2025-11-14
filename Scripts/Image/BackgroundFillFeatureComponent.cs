@@ -31,26 +31,27 @@ namespace JacobHomanics.TrickedOutUI
 
         void Update()
         {
-            HandleValueChange(Current, backgroundFillFeature, backgroundFillFeature.backgroundFill, backgroundFillFeature.keepSizeConsistent, ref previousValue, Max);
             var fa = backgroundFillFeature.backgroundFill.fillAmount;
+
+            HandleValueChange(Current, backgroundFillFeature, ref fa, backgroundFillFeature.keepSizeConsistent, ref previousValue, Max);
             backgroundFillFeature.backgroundFill.fillAmount = UpdateBackgroundFillAnimation(ref fa, Max);
             backgroundFillFeature.backgroundFill.fillAmount = fa;
         }
 
-        public void HandleValueChange(float newValue, BackgroundFillFeature bgFeature, Image image, bool keepSizeConsistent, ref float previousValue, float max)
+        public void HandleValueChange(float newValue, BackgroundFillFeature bgFeature, ref float fillAmount, bool keepSizeConsistent, ref float previousValue, float max)
         {
             if (Mathf.Abs(newValue - previousValue) < 0.001f)
                 return;
 
             // Get the current background fill value
-            float currentFillValue = GetBackgroundFillValue(image.fillAmount, max);
+            float currentFillValue = GetBackgroundFillValue(fillAmount, max);
 
             // Check if background fill needs initialization (is at or near 0, indicating uninitialized)
             // Only initialize if it's truly uninitialized, not just different
             if (currentFillValue < 0.01f * max)
             {
                 // Background fill appears uninitialized, initialize it to previousValue
-                image.fillAmount = Normalize(previousValue, max);
+                fillAmount = Normalize(previousValue, max);
                 currentFillValue = previousValue;
             }
 
@@ -65,7 +66,7 @@ namespace JacobHomanics.TrickedOutUI
             {
                 // Reset to previous value (starts from previous slider value)
                 startValue = previousValue;
-                image.fillAmount = Normalize(previousValue, max);
+                fillAmount = Normalize(previousValue, max);
             }
 
             // If new value is greater than start position, immediately snap to it
@@ -74,15 +75,15 @@ namespace JacobHomanics.TrickedOutUI
                 // Stop any ongoing animation
                 isAnimating = false;
                 // Immediately set to new value
-                image.fillAmount = Normalize(newValue, max);
+                fillAmount = Normalize(newValue, max);
             }
             else
             {
                 // HP goes down or stays same - animate from start position
                 // Set up animation state
-                var fa = image.fillAmount;
+                var fa = fillAmount;
                 StartBackgroundFillAnimation(startValue, newValue, max, bgFeature.delay, bgFeature.speedCurve, bgFeature.animationSpeed, ref fa);
-                image.fillAmount = fa;
+                fillAmount = fa;
             }
 
             previousValue = newValue;

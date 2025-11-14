@@ -9,6 +9,7 @@ namespace JacobHomanics.TrickedOutUI
     /// </summary>
     public class EnabledMinMaxComponent : BaseCurrentMaxComponent
     {
+        [Range(0f, 100f)]
         public float thresholdPercent = 20f;
 
         public enum ThresholdType

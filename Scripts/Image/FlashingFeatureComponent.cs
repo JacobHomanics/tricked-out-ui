@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,10 +24,30 @@ namespace JacobHomanics.TrickedOutUI
 
         void Update()
         {
-            FlashingFeatureCommand(flashImage, thresholdPercent, flashColor1, flashColor2, flashSpeed, Current, Max, thresholdType);
+            // var result = FlashingFeatureCommand(thresholdPercent, flashColor1, flashColor2, flashSpeed, Current, Max, thresholdType);
+            flashImage.enabled = IsEnabled(thresholdType, Current, Max, thresholdPercent);
+            flashImage.color = CalcColor(flashSpeed, flashColor1, flashColor2);
+            flashImage.fillAmount = Something(Current, Max);
         }
 
-        public static void FlashingFeatureCommand(Image image, float thresholdPercent, Color flashColor1, Color flashColor2, float flashSpeed, float current, float max, ThresholdType thresholdType)
+        // public static (bool, Color, float) FlashingFeatureCommand(float thresholdPercent, Color flashColor1, Color flashColor2, float flashSpeed, float current, float max, ThresholdType thresholdType)
+        // {
+        //     float healthPercent;
+        //     healthPercent = current / max;
+
+        //     bool condition = false;
+        //     if (thresholdType == ThresholdType.below)
+        //         condition = healthPercent <= thresholdPercent;
+        //     if (thresholdType == ThresholdType.above)
+        //         condition = healthPercent >= thresholdPercent;
+
+        //     float flashValue = Mathf.Sin(Time.time * flashSpeed) * 0.5f + 0.5f;
+        //     Color flashColor = Color.Lerp(flashColor1, flashColor2, flashValue);
+
+        //     return (condition, flashColor, current / max);
+        // }
+
+        public static bool IsEnabled(ThresholdType thresholdType, float current, float max, float thresholdPercent)
         {
             float healthPercent;
             healthPercent = current / max;
@@ -37,14 +58,20 @@ namespace JacobHomanics.TrickedOutUI
             if (thresholdType == ThresholdType.above)
                 condition = healthPercent >= thresholdPercent;
 
-            image.enabled = condition;
-
-            float flashValue = Mathf.Sin(Time.time * flashSpeed) * 0.5f + 0.5f;
-            Color flashColor = Color.Lerp(flashColor1, flashColor2, flashValue);
-            image.color = flashColor;
-            image.fillAmount = current / max;
+            return condition;
         }
 
+        public static Color CalcColor(float flashSpeed, Color flashColor1, Color flashColor2)
+        {
+            float flashValue = Mathf.Sin(Time.time * flashSpeed) * 0.5f + 0.5f;
+            Color flashColor = Color.Lerp(flashColor1, flashColor2, flashValue);
+            return flashColor;
+        }
+
+        public static float Something(float value1, float value2)
+        {
+            return value1 / value2;
+        }
     }
 }
 

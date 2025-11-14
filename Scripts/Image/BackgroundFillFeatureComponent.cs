@@ -55,7 +55,7 @@ namespace JacobHomanics.TrickedOutUI
             if (currentFillValue < 0.01f * max)
             {
                 // Background fill appears uninitialized, initialize it to previousValue
-                SetBackgroundFillAmount(bgFeature, previousValue, max);
+                bgFeature.backgroundFill.fillAmount = SetBackgroundFillAmount(previousValue, max);
                 currentFillValue = previousValue;
             }
 
@@ -70,7 +70,7 @@ namespace JacobHomanics.TrickedOutUI
             {
                 // Reset to previous value (starts from previous slider value)
                 startValue = previousValue;
-                SetBackgroundFillAmount(bgFeature, previousValue, max);
+                bgFeature.backgroundFill.fillAmount = SetBackgroundFillAmount(previousValue, max);
             }
 
             // If new value is greater than start position, immediately snap to it
@@ -79,7 +79,7 @@ namespace JacobHomanics.TrickedOutUI
                 // Stop any ongoing animation
                 isAnimating = false;
                 // Immediately set to new value
-                SetBackgroundFillAmount(bgFeature, newValue, max);
+                bgFeature.backgroundFill.fillAmount = SetBackgroundFillAmount(newValue, max);
             }
             else
             {
@@ -96,7 +96,7 @@ namespace JacobHomanics.TrickedOutUI
             float valueDifference = Mathf.Abs(fromValue - toValue);
             if (valueDifference < 0.001f)
             {
-                SetBackgroundFillAmount(bgFeature, toValue, max);
+                bgFeature.backgroundFill.fillAmount = SetBackgroundFillAmount(toValue, max);
                 isAnimating = false;
                 return;
             }
@@ -127,29 +127,36 @@ namespace JacobHomanics.TrickedOutUI
                 return;
             }
 
+            float fillAmount;
+
             // Update animation
             animationElapsed += Time.deltaTime;
             float t = Mathf.Clamp01(animationElapsed / animationDuration);
             float currentValue = Mathf.Lerp(animationFromValue, animationToValue, t);
-            SetBackgroundFillAmount(bgFeature, currentValue, max);
+            fillAmount = SetBackgroundFillAmount(currentValue, max);
+
 
             // Check if animation is complete
             if (animationElapsed >= animationDuration)
             {
-                SetBackgroundFillAmount(bgFeature, animationToValue, max);
+                fillAmount = SetBackgroundFillAmount(animationToValue, max);
                 isAnimating = false;
             }
+
+            bgFeature.backgroundFill.fillAmount = fillAmount;
         }
 
-        public static void SetBackgroundFillAmount(BackgroundFillFeature bgFeature, float amount, float max)
+        // public static void SetBackgroundFillAmount(BackgroundFillFeature bgFeature, float amount, float max)
+        // {
+        //     if (bgFeature != null && bgFeature.backgroundFill != null)
+        //     {
+        //         bgFeature.backgroundFill.fillAmount = SetBackgroundFillAmount(amount, max);
+        //     }
+        // }
+
+        public static float SetBackgroundFillAmount(float amount, float max)
         {
-            if (bgFeature != null && bgFeature.backgroundFill != null)
-            {
-
-                bgFeature.backgroundFill.fillAmount = amount / max;
-
-                // bgFeature.backgroundFill.fillAmount = amount / max;
-            }
+            return amount / max;
         }
 
         public static float GetBackgroundFillValue(BackgroundFillFeature bgFeature, float max)

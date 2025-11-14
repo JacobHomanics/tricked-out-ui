@@ -32,10 +32,9 @@ namespace JacobHomanics.TrickedOutUI
         void Update()
         {
             var fa = backgroundFillFeature.backgroundFill.fillAmount;
-
             HandleValueChange(Current, backgroundFillFeature, ref fa, backgroundFillFeature.keepSizeConsistent, ref previousValue, Max);
-            backgroundFillFeature.backgroundFill.fillAmount = UpdateBackgroundFillAnimation(ref fa, Max);
-            backgroundFillFeature.backgroundFill.fillAmount = fa;
+            backgroundFillFeature.backgroundFill.fillAmount = UpdateBackgroundFillAnimation(fa, Max);
+            // backgroundFillFeature.backgroundFill.fillAmount = fa;
         }
 
         public void HandleValueChange(float newValue, BackgroundFillFeature bgFeature, ref float fillAmount, bool keepSizeConsistent, ref float previousValue, float max)
@@ -112,7 +111,7 @@ namespace JacobHomanics.TrickedOutUI
             animationDuration = valueDifference / dynamicSpeed;
         }
 
-        public float UpdateBackgroundFillAnimation(ref float fillAmount, float max)
+        public float UpdateBackgroundFillAnimation(float fillAmount, float max)
         {
             if (!isAnimating)
                 return fillAmount;

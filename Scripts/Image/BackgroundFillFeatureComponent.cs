@@ -87,18 +87,19 @@ namespace JacobHomanics.TrickedOutUI
             {
                 // HP goes down or stays same - animate from start position
                 // Set up animation state
-                StartBackgroundFillAnimation(startValue, newValue, bgFeature, max);
+                var fa = bgFeature.backgroundFill.fillAmount;
+                StartBackgroundFillAnimation(startValue, newValue, max, bgFeature.delay, bgFeature.speedCurve, bgFeature.animationSpeed, ref fa);
+                bgFeature.backgroundFill.fillAmount = fa;
             }
 
             previousValue = newValue;
         }
-
-        public void StartBackgroundFillAnimation(float fromValue, float toValue, BackgroundFillFeature bgFeature, float max)
+        public void StartBackgroundFillAnimation(float fromValue, float toValue, float max, float delay, AnimationCurve curve, float speed, ref float fillAmount)
         {
             float valueDifference = Mathf.Abs(fromValue - toValue);
             if (valueDifference < 0.001f)
             {
-                bgFeature.backgroundFill.fillAmount = Normalize(toValue, max);
+                fillAmount = Normalize(toValue, max);
                 isAnimating = false;
                 return;
             }
@@ -108,12 +109,12 @@ namespace JacobHomanics.TrickedOutUI
             animationFromValue = fromValue;
             animationToValue = toValue;
             animationElapsed = 0f;
-            animationDelayRemaining = bgFeature.delay;
+            animationDelayRemaining = delay;
 
             // Calculate dynamic animation speed based on difference
             float normalizedDifference = valueDifference / max;
-            float speedMultiplier = bgFeature.speedCurve.Evaluate(normalizedDifference);
-            float dynamicSpeed = bgFeature.animationSpeed * speedMultiplier * Time.deltaTime;
+            float speedMultiplier = curve.Evaluate(normalizedDifference);
+            float dynamicSpeed = speed * speedMultiplier * Time.deltaTime;
             animationDuration = valueDifference / dynamicSpeed;
         }
 

@@ -13,9 +13,9 @@ namespace JacobHomanics.TrickedOutUI
 
         void Update()
         {
-            flashImage.enabled = IsEnabled(thresholdType, Current, Max, thresholdPercent);
+            // flashImage.enabled = IsEnabled(thresholdType, Current, Max, thresholdPercent);
             flashImage.color = CalcColor(flashSpeed, flashColor1, flashColor2);
-            flashImage.fillAmount = Normalize(Current, Max);
+            // flashImage.fillAmount = Normalize(Current, Max);
         }
     }
 }

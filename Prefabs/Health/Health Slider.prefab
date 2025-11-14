@@ -608,6 +608,8 @@ GameObject:
   - component: {fileID: 2942519561771985071}
   - component: {fileID: 8594109096668083368}
   - component: {fileID: 4750006351330915196}
+  - component: {fileID: 8988799071449369825}
+  - component: {fileID: 1421179771354603912}
   m_Layer: 5
   m_Name: Flash
   m_TagString: Untagged
@@ -684,12 +686,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07aba5db2847f427689ea34c75bbd42e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thresholdPercent: 0.2
   flashColor1: {r: 1, g: 0, b: 0, a: 1}
   flashColor2: {r: 1, g: 1, b: 1, a: 1}
   flashSpeed: 15
-  thresholdType: 0
   flashImage: {fileID: 8594109096668083368}
+--- !u!114 &8988799071449369825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5737946761157202813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e18db810856384b4abdf73badf782fdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thresholdPercent: 0.2
+  thresholdType: 0
+  monoBehaviour: {fileID: 8594109096668083368}
+--- !u!114 &1421179771354603912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5737946761157202813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1216e4a29f27749d1819db3beb8ddc3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  image: {fileID: 8594109096668083368}
 --- !u!1 &7558892514746803981
 GameObject:
   m_ObjectHideFlags: 0

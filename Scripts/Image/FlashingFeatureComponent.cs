@@ -9,31 +9,31 @@ namespace JacobHomanics.TrickedOutUI
     /// </summary>
     public abstract class FlashingFeatureComponent : BaseCurrentMaxComponent
     {
-        public float thresholdPercent = 0.2f;
+        // public float thresholdPercent = 0.2f;
         public Color flashColor1 = Color.red;
         public Color flashColor2 = Color.white;
         public float flashSpeed = 15f;
 
-        public enum ThresholdType
-        {
-            below, above
-        }
+        // public enum ThresholdType
+        // {
+        //     below, above
+        // }
 
-        public ThresholdType thresholdType;
+        // public ThresholdType thresholdType;
 
-        public static bool IsEnabled(ThresholdType thresholdType, float current, float max, float thresholdPercent)
-        {
-            float healthPercent;
-            healthPercent = current / max;
+        // public static bool IsEnabled(ThresholdType thresholdType, float current, float max, float thresholdPercent)
+        // {
+        //     float healthPercent;
+        //     healthPercent = current / max;
 
-            bool condition = false;
-            if (thresholdType == ThresholdType.below)
-                condition = healthPercent <= thresholdPercent;
-            if (thresholdType == ThresholdType.above)
-                condition = healthPercent >= thresholdPercent;
+        //     bool condition = false;
+        //     if (thresholdType == ThresholdType.below)
+        //         condition = healthPercent <= thresholdPercent;
+        //     if (thresholdType == ThresholdType.above)
+        //         condition = healthPercent >= thresholdPercent;
 
-            return condition;
-        }
+        //     return condition;
+        // }
 
         public static Color CalcColor(float flashSpeed, Color flashColor1, Color flashColor2)
         {

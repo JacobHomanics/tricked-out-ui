@@ -26,9 +26,8 @@ namespace JacobHomanics.TrickedOutUI
     /// MonoBehaviour component that applies a color gradient to an image based on current and max values.
     /// Supports an arbitrary list of colors and thresholds.
     /// </summary>
-    public class ColorGradientFeatureComponent : BaseCurrentMaxComponent
+    public abstract class ColorGradientFeatureComponent : BaseCurrentMaxComponent
     {
-        public Image image;
 
         [Tooltip("List of color stops defining the gradient. Thresholds should be between 0.0 and 1.0, and will be automatically sorted.")]
         public List<ColorStop> colorStops = new()
@@ -38,16 +37,10 @@ namespace JacobHomanics.TrickedOutUI
             new(Color.green, 1f)
         };
 
-        void Update()
+        protected Color HandleColor()
         {
-            ColorGradientFeatureCommand(colorStops, image, Current, Max);
+            return CalculateColor(colorStops, Current, Max);
         }
-
-        public void ColorGradientFeatureCommand(List<ColorStop> colorStops, Image image, float current, float max)
-        {
-            image.color = CalculateColor(colorStops, current, max);
-        }
-
 
         public Color CalculateColor(List<ColorStop> colorStops, float current, float max)
         {

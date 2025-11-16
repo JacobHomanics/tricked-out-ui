@@ -128,7 +128,7 @@ GameObject:
   - component: {fileID: 1586434715502574343}
   - component: {fileID: 1247742831302846541}
   - component: {fileID: 3549978885436732176}
-  - component: {fileID: 2116095698638750554}
+  - component: {fileID: 8420603204297845550}
   m_Layer: 5
   m_Name: Max Text
   m_TagString: Untagged
@@ -254,7 +254,7 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &2116095698638750554
+--- !u!114 &8420603204297845550
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -263,18 +263,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 1598069856593830627}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21409c21636d5426c85e134252ffc7f7, type: 3}
+  m_Script: {fileID: 11500000, guid: f0b375986d85d4463ac15d645662b83f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   properties:
     text: {fileID: 3549978885436732176}
-    displayType: 1
-    format: '#,##0.##'
+    format: '#,##0.00'
     clampAtMax: 1
     clampAtZero: 1
     ceil: 0
     floor: 0
-    isPercentage: 0
 --- !u!1 &2172877226195926869
 GameObject:
   m_ObjectHideFlags: 0
@@ -457,7 +455,7 @@ GameObject:
   - component: {fileID: 6681057936720883115}
   - component: {fileID: 2860476305807367325}
   - component: {fileID: 1428707534241963530}
-  - component: {fileID: 9024169317595655348}
+  - component: {fileID: 3443261432265530703}
   m_Layer: 5
   m_Name: Current Text
   m_TagString: Untagged
@@ -583,7 +581,7 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &9024169317595655348
+--- !u!114 &3443261432265530703
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -592,18 +590,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 3820184727503345720}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21409c21636d5426c85e134252ffc7f7, type: 3}
+  m_Script: {fileID: 11500000, guid: ea4be429096e7450d9607a9f8df0f1e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   properties:
     text: {fileID: 1428707534241963530}
-    displayType: 0
-    format: '#,##0.##'
+    format: '#,##0.00'
     clampAtMax: 1
     clampAtZero: 1
     ceil: 0
     floor: 0
-    isPercentage: 0
 --- !u!1 &5099043792132611952
 GameObject:
   m_ObjectHideFlags: 0
@@ -615,7 +611,7 @@ GameObject:
   - component: {fileID: 8178747344199675986}
   - component: {fileID: 3721175221014535742}
   - component: {fileID: 3387060484826601026}
-  - component: {fileID: 6288976513108206953}
+  - component: {fileID: 7705684987961882783}
   m_Layer: 5
   m_Name: Max Text (1)
   m_TagString: Untagged
@@ -741,7 +737,7 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &6288976513108206953
+--- !u!114 &7705684987961882783
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -750,18 +746,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 5099043792132611952}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21409c21636d5426c85e134252ffc7f7, type: 3}
+  m_Script: {fileID: 11500000, guid: 07bc58b9273704180b8df5524ac711cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   properties:
     text: {fileID: 3387060484826601026}
-    displayType: 3
-    format: '#,##0.##'
+    format: '#,##0.00'
     clampAtMax: 0
     clampAtZero: 1
     ceil: 0
     floor: 0
-    isPercentage: 1
 --- !u!1 &5560656996177424187
 GameObject:
   m_ObjectHideFlags: 0

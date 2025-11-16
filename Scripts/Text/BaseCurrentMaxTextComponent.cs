@@ -7,13 +7,6 @@ namespace JacobHomanics.TrickedOutUI
     public class TextProperties
     {
         public TMP_Text text;
-
-        public enum DisplayType
-        {
-            Current, Max, Difference, CurrentPercentage
-        }
-
-        public DisplayType displayType;
         public string format = "#,##0";
 
         public bool clampAtMax;
@@ -21,66 +14,40 @@ namespace JacobHomanics.TrickedOutUI
         public bool ceil;
 
         public bool floor;
-
-        public bool isPercentage;
     }
 
     public abstract class BaseCurrentMaxTextComponent : BaseCurrentMaxComponent
     {
-
-        public void Display(TMP_Text text, TextProperties.DisplayType displayType, float current, float max, string format, bool clampAtZero, bool clampAtMax, bool ceil, bool floor, bool isPercentage = false)
-        {
-            Debug.Log(displayType);
-            if (displayType == TextProperties.DisplayType.Current)
-                Display(text, current, max, format, clampAtZero, clampAtMax, ceil, floor);
-            if (displayType == TextProperties.DisplayType.CurrentPercentage)
-                Display(text, current, max, format, clampAtZero, clampAtMax, ceil, floor, isPercentage);
-            if (displayType == TextProperties.DisplayType.Current)
-                Display(text, current, max, format, clampAtZero, clampAtMax, ceil, floor);
-            if (displayType == TextProperties.DisplayType.Max)
-                Display(text, max, max, format, clampAtZero, clampAtMax, ceil, floor);
-            if (displayType == TextProperties.DisplayType.Difference)
-                Display(text, max - current, max, format, clampAtZero, clampAtMax, ceil, floor);
-        }
-
-        public void Display(TMP_Text text, float num, float max, string format, bool clampAtZero, bool clampAtMax, bool ceil, bool floor, bool isPercentage = false)
+        protected float ProcessValue(float value, float max, TextProperties properties)
         {
             float minValue = Mathf.NegativeInfinity;
             float maxValue = Mathf.Infinity;
 
-            if (clampAtZero)
+            if (properties.clampAtZero)
                 minValue = 0;
 
-            if (clampAtMax)
+            if (properties.clampAtMax)
                 maxValue = max;
 
-            float finalValue = Mathf.Clamp(num, minValue, maxValue);
+            float finalValue = Mathf.Clamp(value, minValue, maxValue);
 
-            if (ceil)
+            if (properties.ceil)
             {
                 finalValue = Mathf.Ceil(finalValue);
             }
 
-            if (floor)
+            if (properties.floor)
             {
                 finalValue = Mathf.Floor(finalValue);
             }
 
-            if (isPercentage)
-            {
-                Debug.Log("Is Percentage");
-                finalValue = (num / max) * 100f;
+            return finalValue;
+        }
 
-            }
-
-
-            var finalValueStringRaw = finalValue.ToString(format);
-
-            var finalString = finalValueStringRaw;
-            if (isPercentage)
-                finalString = "(" + finalValueStringRaw + "%)";
-
-            text.text = finalString;
+        protected void SetText(float finalValue, TextProperties properties)
+        {
+            var finalValueStringRaw = finalValue.ToString(properties.format);
+            properties.text.text = finalValueStringRaw;
         }
     }
 }

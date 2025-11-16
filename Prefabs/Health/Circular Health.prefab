@@ -454,7 +454,7 @@ GameObject:
   - component: {fileID: 8847083107342412991}
   - component: {fileID: 1704967237643405745}
   - component: {fileID: 1934132475964070348}
-  - component: {fileID: 1658228674537554657}
+  - component: {fileID: 2715441912094767508}
   m_Layer: 5
   m_Name: Count Text
   m_TagString: Untagged
@@ -580,7 +580,7 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &1658228674537554657
+--- !u!114 &2715441912094767508
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -589,14 +589,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 6972704348806089915}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21409c21636d5426c85e134252ffc7f7, type: 3}
+  m_Script: {fileID: 11500000, guid: ea4be429096e7450d9607a9f8df0f1e9, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: trickedoutui::JacobHomanics.UI.TextDisplayFeatureComponent
+  m_EditorClassIdentifier: 
   properties:
     text: {fileID: 1934132475964070348}
-    displayType: 0
-    format: '#,##0'
+    format: '#,##0.00'
     clampAtMax: 1
     clampAtZero: 1
-    ceil: 1
+    ceil: 0
     floor: 0

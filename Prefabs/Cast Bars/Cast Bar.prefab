@@ -246,7 +246,7 @@ GameObject:
   - component: {fileID: 6740703275006555212}
   - component: {fileID: 7967328806515323329}
   - component: {fileID: 4238568468058687762}
-  - component: {fileID: 2314850698434936808}
+  - component: {fileID: 5292430235516115288}
   m_Layer: 5
   m_Name: Current
   m_TagString: Untagged
@@ -372,7 +372,7 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &2314850698434936808
+--- !u!114 &5292430235516115288
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -381,12 +381,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 4083848378012079257}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21409c21636d5426c85e134252ffc7f7, type: 3}
+  m_Script: {fileID: 11500000, guid: ea4be429096e7450d9607a9f8df0f1e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   properties:
     text: {fileID: 4238568468058687762}
-    displayType: 0
     format: '#,##0.0'
     clampAtMax: 1
     clampAtZero: 1
@@ -553,7 +552,7 @@ GameObject:
   - component: {fileID: 114521619685957163}
   - component: {fileID: 180649143984941509}
   - component: {fileID: 5761435026076774386}
-  - component: {fileID: 6051059793771315147}
+  - component: {fileID: 8265498366314819214}
   m_Layer: 5
   m_Name: Max Text
   m_TagString: Untagged
@@ -679,7 +678,7 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &6051059793771315147
+--- !u!114 &8265498366314819214
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -688,12 +687,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 6698625439190749839}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21409c21636d5426c85e134252ffc7f7, type: 3}
+  m_Script: {fileID: 11500000, guid: f0b375986d85d4463ac15d645662b83f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   properties:
     text: {fileID: 5761435026076774386}
-    displayType: 1
     format: '#,##0.0'
     clampAtMax: 1
     clampAtZero: 1

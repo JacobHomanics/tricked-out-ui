@@ -3,6 +3,7 @@ namespace JacobHomanics.TrickedOutUI
     public class CurrentPercentageTextComponent : BaseCurrentMaxTextComponent
     {
         public TextProperties properties;
+        public bool encloseInBraces;
 
         void Update()
         {
@@ -14,7 +15,7 @@ namespace JacobHomanics.TrickedOutUI
             float processedValue = ProcessValue(percentageValue, max, properties);
 
             var finalValueStringRaw = processedValue.ToString(properties.format);
-            var finalString = "(" + finalValueStringRaw + "%)";
+            var finalString = encloseInBraces ? "(" + finalValueStringRaw + "%)" : finalValueStringRaw + "%";
             properties.text.text = finalString;
         }
     }

@@ -10,7 +10,7 @@ namespace JacobHomanics.TrickedOutUI
 
         public enum DisplayType
         {
-            Current, Max, Difference
+            Current, Max, Difference, CurrentPercentage
         }
 
         public DisplayType displayType;
@@ -21,13 +21,20 @@ namespace JacobHomanics.TrickedOutUI
         public bool ceil;
 
         public bool floor;
+
+        public bool isPercentage;
     }
 
     public abstract class BaseCurrentMaxTextComponent : BaseCurrentMaxComponent
     {
 
-        public void Display(TMP_Text text, TextProperties.DisplayType displayType, float current, float max, string format, bool clampAtZero, bool clampAtMax, bool ceil, bool floor)
+        public void Display(TMP_Text text, TextProperties.DisplayType displayType, float current, float max, string format, bool clampAtZero, bool clampAtMax, bool ceil, bool floor, bool isPercentage = false)
         {
+            Debug.Log(displayType);
+            if (displayType == TextProperties.DisplayType.Current)
+                Display(text, current, max, format, clampAtZero, clampAtMax, ceil, floor);
+            if (displayType == TextProperties.DisplayType.CurrentPercentage)
+                Display(text, current, max, format, clampAtZero, clampAtMax, ceil, floor, isPercentage);
             if (displayType == TextProperties.DisplayType.Current)
                 Display(text, current, max, format, clampAtZero, clampAtMax, ceil, floor);
             if (displayType == TextProperties.DisplayType.Max)
@@ -36,7 +43,7 @@ namespace JacobHomanics.TrickedOutUI
                 Display(text, max - current, max, format, clampAtZero, clampAtMax, ceil, floor);
         }
 
-        public void Display(TMP_Text text, float num, float max, string format, bool clampAtZero, bool clampAtMax, bool ceil, bool floor)
+        public void Display(TMP_Text text, float num, float max, string format, bool clampAtZero, bool clampAtMax, bool ceil, bool floor, bool isPercentage = false)
         {
             float minValue = Mathf.NegativeInfinity;
             float maxValue = Mathf.Infinity;
@@ -59,7 +66,21 @@ namespace JacobHomanics.TrickedOutUI
                 finalValue = Mathf.Floor(finalValue);
             }
 
-            text.text = finalValue.ToString(format);
+            if (isPercentage)
+            {
+                Debug.Log("Is Percentage");
+                finalValue = (num / max) * 100f;
+
+            }
+
+
+            var finalValueStringRaw = finalValue.ToString(format);
+
+            var finalString = finalValueStringRaw;
+            if (isPercentage)
+                finalString = "(" + finalValueStringRaw + "%)";
+
+            text.text = finalString;
         }
     }
 }

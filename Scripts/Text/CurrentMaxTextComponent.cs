@@ -70,10 +70,14 @@ namespace JacobHomanics.TrickedOutUI
 
             // Check if this is a percentage value component and handle formatting
             bool isPercentage = valueComponent is CurrentPercentageValueComponent;
-            bool encloseInBraces = System.Array.Exists(featureComponents, f => f is EncloseInBracesComponent);
+            EncloseInBracesComponent encloseInBracesComponent = System.Array.Find(featureComponents, f => f is EncloseInBracesComponent) as EncloseInBracesComponent;
+            bool encloseInBraces = encloseInBracesComponent != null;
 
             string finalString = finalValueStringRaw;
-            if (isPercentage)
+            // Show percentage symbol if it's a percentage value component AND 
+            // either there's no EncloseInBracesComponent or it's enabled in the component
+            bool shouldShowPercentage = isPercentage && (encloseInBracesComponent == null || encloseInBracesComponent.showPercentageSymbol);
+            if (shouldShowPercentage)
             {
                 finalString = finalValueStringRaw + "%";
             }
@@ -91,9 +95,6 @@ namespace JacobHomanics.TrickedOutUI
 
         void Update()
         {
-            if (valueComponent == null || text == null)
-                return;
-
             float value = valueComponent.GetValue(Current, Max);
             float processedValue = ProcessValue(value, Max);
             SetText(processedValue);

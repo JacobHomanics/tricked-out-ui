@@ -112,6 +112,15 @@ namespace JacobHomanics.TrickedOutUI.Editor
 
             EditorGUILayout.Space();
 
+            // Show the valueComponent field reference
+            SerializedProperty valueComponentProp = serializedObject.FindProperty("_valueComponent");
+            if (valueComponentProp != null)
+            {
+                Rect rect = EditorGUILayout.GetControlRect(false, EditorGUIUtility.singleLineHeight);
+                EditorGUI.PropertyField(rect, valueComponentProp, GUIContent.none);
+            }
+
+            EditorGUILayout.Space();
 
             string buttonText = targetComponent.valueComponent != null ? "Change" : "Add Value Component";
             if (GUILayout.Button(buttonText))
@@ -173,47 +182,16 @@ namespace JacobHomanics.TrickedOutUI.Editor
         {
             SerializedProperty featureComponentsProp = serializedObject.FindProperty("_featureComponents");
 
-            EditorGUILayout.LabelField("Feature Components", EditorStyles.boldLabel);
-
             if (featureComponentsProp == null)
             {
                 EditorGUILayout.HelpBox("Unable to find feature components property.", MessageType.Warning);
                 return;
             }
 
-            // Draw the array
-            EditorGUI.indentLevel++;
-            for (int i = 0; i < featureComponentsProp.arraySize; i++)
-            {
-                EditorGUILayout.BeginHorizontal();
+            // Draw the array as an editable list
+            EditorGUILayout.PropertyField(featureComponentsProp, true);
 
-                SerializedProperty elementProp = featureComponentsProp.GetArrayElementAtIndex(i);
-                BaseTextFeatureComponent feature = elementProp.objectReferenceValue as BaseTextFeatureComponent;
-
-                if (feature != null)
-                {
-                    string featureName = GetFeatureComponentName(feature);
-                    EditorGUILayout.LabelField(featureName);
-                }
-                else
-                {
-                    EditorGUILayout.LabelField("(Missing Component)");
-                }
-
-                if (GUILayout.Button("Remove", GUILayout.Width(60)))
-                {
-                    Undo.RecordObject(target, "Remove Feature Component");
-                    RemoveFeatureComponentAt(i);
-                    serializedObject.Update();
-                    EditorUtility.SetDirty(target);
-                    break;
-                }
-
-                EditorGUILayout.EndHorizontal();
-            }
-            EditorGUI.indentLevel--;
-
-            // Add Component Button
+            // Add Component Button (alternative way to add components)
             if (GUILayout.Button("Add Feature Component"))
             {
                 ShowFeatureComponentMenu(targetComponent);

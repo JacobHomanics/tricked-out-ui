@@ -203,8 +203,42 @@ namespace JacobHomanics.TrickedOutUI.Editor
                 return;
             }
 
-            // Draw the array as an editable list
-            EditorGUILayout.PropertyField(featureComponentsProp, true);
+            // Draw the array with descriptive labels
+            EditorGUILayout.LabelField("Feature Components", EditorStyles.boldLabel);
+
+            // Draw array size
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField("Size", GUILayout.Width(EditorGUIUtility.labelWidth - EditorGUI.indentLevel * 15));
+            int newSize = EditorGUILayout.IntField(featureComponentsProp.arraySize);
+            if (newSize != featureComponentsProp.arraySize)
+            {
+                if (newSize < 0) newSize = 0;
+                featureComponentsProp.arraySize = newSize;
+            }
+            EditorGUILayout.EndHorizontal();
+
+            EditorGUI.indentLevel++;
+
+            for (int i = 0; i < featureComponentsProp.arraySize; i++)
+            {
+                EditorGUILayout.BeginHorizontal();
+
+                SerializedProperty elementProp = featureComponentsProp.GetArrayElementAtIndex(i);
+                BaseTextFeatureComponent feature = elementProp.objectReferenceValue as BaseTextFeatureComponent;
+
+                string label = feature != null ? GetFeatureComponentName(feature) : $"Element {i}";
+                EditorGUILayout.PropertyField(elementProp, new GUIContent(label));
+
+                if (GUILayout.Button("−", GUILayout.Width(20)))
+                {
+                    featureComponentsProp.DeleteArrayElementAtIndex(i);
+                    break;
+                }
+
+                EditorGUILayout.EndHorizontal();
+            }
+
+            EditorGUI.indentLevel--;
 
             // Add Component Button (alternative way to add components)
             if (GUILayout.Button("Add Feature Component"))

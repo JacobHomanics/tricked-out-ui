@@ -7,6 +7,42 @@ namespace JacobHomanics.TrickedOutUI.Editor
     [CustomEditor(typeof(BaseCurrentMaxTextComponent))]
     public class BaseCurrentMaxTextComponentEditor : UnityEditor.Editor
     {
+        private static GUIStyle _headerStyle;
+        private static GUIStyle _headerStyleSubtitle;
+
+        private static GUIStyle HeaderStyle
+        {
+            get
+            {
+                if (_headerStyle == null)
+                {
+                    _headerStyle = new GUIStyle(EditorStyles.label);
+                    _headerStyle.fontSize = 18;
+                    _headerStyle.fontStyle = FontStyle.Bold;
+                    _headerStyle.normal.textColor = EditorStyles.label.normal.textColor;
+                    _headerStyle.alignment = TextAnchor.MiddleCenter;
+                }
+                return _headerStyle;
+            }
+        }
+
+        private static GUIStyle HeaderStyleSubtitle
+        {
+            get
+            {
+                if (_headerStyleSubtitle == null)
+                {
+                    _headerStyleSubtitle = new GUIStyle(EditorStyles.label);
+                    _headerStyleSubtitle.fontSize = 24;
+                    _headerStyleSubtitle.fontStyle = FontStyle.Normal;
+                    _headerStyleSubtitle.normal.textColor = EditorStyles.label.normal.textColor;
+                    _headerStyleSubtitle.alignment = TextAnchor.MiddleCenter;
+                }
+                return _headerStyleSubtitle;
+            }
+        }
+
+
         public enum ValueComponentType
         {
             Current,
@@ -44,25 +80,38 @@ namespace JacobHomanics.TrickedOutUI.Editor
 
             // Text Field Section
             DrawTextFieldSection();
-            
+
             serializedObject.ApplyModifiedProperties();
         }
 
         private void DrawValueComponentSection(BaseCurrentMaxTextComponent targetComponent)
         {
-            EditorGUILayout.LabelField("Value Component", EditorStyles.boldLabel);
+            EditorGUILayout.Space();
+            EditorGUILayout.BeginHorizontal();
+            GUILayout.FlexibleSpace();
+            EditorGUILayout.LabelField("Type", HeaderStyle, GUILayout.ExpandWidth(false));
+            GUILayout.FlexibleSpace();
+            EditorGUILayout.EndHorizontal();
+            EditorGUILayout.Space();
 
+            EditorGUILayout.BeginHorizontal();
+            GUILayout.FlexibleSpace();
             if (targetComponent.valueComponent != null)
             {
                 string componentName = GetValueComponentName(targetComponent.valueComponent);
-                EditorGUILayout.LabelField("Current:", componentName);
+                EditorGUILayout.LabelField(componentName, HeaderStyleSubtitle, GUILayout.ExpandWidth(false));
             }
             else
             {
-                EditorGUILayout.LabelField("Current:", "None");
+                EditorGUILayout.LabelField("None", HeaderStyleSubtitle, GUILayout.ExpandWidth(false));
             }
+            GUILayout.FlexibleSpace();
+            EditorGUILayout.EndHorizontal();
 
-            string buttonText = targetComponent.valueComponent != null ? "Change Value Component" : "Add Value Component";
+            EditorGUILayout.Space();
+
+
+            string buttonText = targetComponent.valueComponent != null ? "Change" : "Add Value Component";
             if (GUILayout.Button(buttonText))
             {
                 ShowValueComponentMenu();
@@ -135,10 +184,10 @@ namespace JacobHomanics.TrickedOutUI.Editor
             for (int i = 0; i < featureComponentsProp.arraySize; i++)
             {
                 EditorGUILayout.BeginHorizontal();
-                
+
                 SerializedProperty elementProp = featureComponentsProp.GetArrayElementAtIndex(i);
                 BaseTextFeatureComponent feature = elementProp.objectReferenceValue as BaseTextFeatureComponent;
-                
+
                 if (feature != null)
                 {
                     string featureName = GetFeatureComponentName(feature);
@@ -148,7 +197,7 @@ namespace JacobHomanics.TrickedOutUI.Editor
                 {
                     EditorGUILayout.LabelField("(Missing Component)");
                 }
-                
+
                 if (GUILayout.Button("Remove", GUILayout.Width(60)))
                 {
                     Undo.RecordObject(target, "Remove Feature Component");
@@ -157,7 +206,7 @@ namespace JacobHomanics.TrickedOutUI.Editor
                     EditorUtility.SetDirty(target);
                     break;
                 }
-                
+
                 EditorGUILayout.EndHorizontal();
             }
             EditorGUI.indentLevel--;
@@ -188,14 +237,14 @@ namespace JacobHomanics.TrickedOutUI.Editor
             menu.AddItem(new GUIContent("Floor"), false, () => AddFeatureComponent<FloorComponent>());
             menu.AddItem(new GUIContent("Enclose In Braces"), false, () => AddFeatureComponent<EncloseInBracesComponent>());
             menu.AddItem(new GUIContent("Format"), false, () => AddFeatureComponent<FormatFeatureComponent>());
-            
+
             menu.ShowAsContext();
         }
 
         private void DrawTextFieldSection()
         {
             EditorGUILayout.LabelField("Text", EditorStyles.boldLabel);
-            
+
             SerializedProperty textProp = serializedObject.FindProperty("text");
             if (textProp != null)
             {
@@ -251,11 +300,11 @@ namespace JacobHomanics.TrickedOutUI.Editor
                 // Check if it's already in the array
                 if (System.Array.Exists(targetComponent.featureComponents, f => f == existingComponent))
                 {
-                    EditorUtility.DisplayDialog("Component Already Added", 
+                    EditorUtility.DisplayDialog("Component Already Added",
                         $"A {typeof(T).Name} is already in the feature components list.", "OK");
                     return;
                 }
-                
+
                 // Add existing component to array
                 Undo.RecordObject(targetComponent, "Add Feature Component");
                 var currentArray = targetComponent.featureComponents;
@@ -281,11 +330,11 @@ namespace JacobHomanics.TrickedOutUI.Editor
         private void RemoveFeatureComponentAt(int index)
         {
             var targetComponent = (BaseCurrentMaxTextComponent)target;
-            
+
             if (index >= 0 && index < targetComponent.featureComponents.Length)
             {
                 var componentToRemove = targetComponent.featureComponents[index];
-                
+
                 // Remove from array
                 var newArray = new BaseTextFeatureComponent[targetComponent.featureComponents.Length - 1];
                 for (int i = 0, j = 0; i < targetComponent.featureComponents.Length; i++)

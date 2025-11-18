@@ -57,6 +57,10 @@ namespace JacobHomanics.TrickedOutUI.Editor
 
             var targetComponent = (CurrentMaxTextComponent)target;
 
+            // Store the current feature components array before drawing
+            BaseTextFeatureComponent[] previousFeatureComponents = new BaseTextFeatureComponent[targetComponent.featureComponents.Length];
+            System.Array.Copy(targetComponent.featureComponents, previousFeatureComponents, targetComponent.featureComponents.Length);
+
             // Draw only the script reference at the top
             EditorGUI.BeginDisabledGroup(true);
             SerializedProperty scriptProp = serializedObject.FindProperty("m_Script");
@@ -82,6 +86,9 @@ namespace JacobHomanics.TrickedOutUI.Editor
             DrawTextFieldSection();
 
             serializedObject.ApplyModifiedProperties();
+
+            // Check for removed components and clean them up
+            CleanupRemovedFeatureComponents(targetComponent, previousFeatureComponents);
         }
 
         private void DrawValueComponentSection(CurrentMaxTextComponent targetComponent)
@@ -305,6 +312,42 @@ namespace JacobHomanics.TrickedOutUI.Editor
 
             EditorUtility.SetDirty(targetComponent);
             serializedObject.Update();
+        }
+
+        private void CleanupRemovedFeatureComponents(CurrentMaxTextComponent targetComponent, BaseTextFeatureComponent[] previousComponents)
+        {
+            BaseTextFeatureComponent[] currentComponents = targetComponent.featureComponents;
+
+            // Find components that were in the previous array but not in the current array
+            foreach (var previousComponent in previousComponents)
+            {
+                if (previousComponent == null)
+                    continue;
+
+                // Check if this component still exists in the current array
+                bool stillExists = System.Array.Exists(currentComponents, c => c == previousComponent);
+
+                if (!stillExists)
+                {
+                    // Component was removed from the array, check if it should be destroyed
+                    bool isUsedElsewhere = false;
+                    var allTextComponents = targetComponent.gameObject.GetComponents<CurrentMaxTextComponent>();
+                    foreach (var textComp in allTextComponents)
+                    {
+                        if (textComp != targetComponent && System.Array.Exists(textComp.featureComponents, f => f == previousComponent))
+                        {
+                            isUsedElsewhere = true;
+                            break;
+                        }
+                    }
+
+                    if (!isUsedElsewhere)
+                    {
+                        Undo.DestroyObjectImmediate(previousComponent);
+                        EditorUtility.SetDirty(targetComponent);
+                    }
+                }
+            }
         }
 
         private void RemoveFeatureComponentAt(int index)

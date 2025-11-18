@@ -4,8 +4,8 @@ using JacobHomanics.TrickedOutUI;
 
 namespace JacobHomanics.TrickedOutUI.Editor
 {
-    [CustomEditor(typeof(BaseCurrentMaxTextComponent))]
-    public class BaseCurrentMaxTextComponentEditor : UnityEditor.Editor
+    [CustomEditor(typeof(CurrentMaxTextComponent))]
+    public class CurrentMaxTextComponentEditor : UnityEditor.Editor
     {
         private static GUIStyle _headerStyle;
         private static GUIStyle _headerStyleSubtitle;
@@ -55,7 +55,7 @@ namespace JacobHomanics.TrickedOutUI.Editor
         {
             serializedObject.Update();
 
-            var targetComponent = (BaseCurrentMaxTextComponent)target;
+            var targetComponent = (CurrentMaxTextComponent)target;
 
             // Draw only the script reference at the top
             EditorGUI.BeginDisabledGroup(true);
@@ -84,7 +84,7 @@ namespace JacobHomanics.TrickedOutUI.Editor
             serializedObject.ApplyModifiedProperties();
         }
 
-        private void DrawValueComponentSection(BaseCurrentMaxTextComponent targetComponent)
+        private void DrawValueComponentSection(CurrentMaxTextComponent targetComponent)
         {
             EditorGUILayout.Space();
             EditorGUILayout.BeginHorizontal();
@@ -103,7 +103,9 @@ namespace JacobHomanics.TrickedOutUI.Editor
             }
             else
             {
-                EditorGUILayout.LabelField("None", HeaderStyleSubtitle, GUILayout.ExpandWidth(false));
+                var style = new GUIStyle(HeaderStyleSubtitle);
+                style.normal.textColor = Color.red;
+                EditorGUILayout.LabelField("None", style, GUILayout.ExpandWidth(false));
             }
             GUILayout.FlexibleSpace();
             EditorGUILayout.EndHorizontal();
@@ -120,7 +122,7 @@ namespace JacobHomanics.TrickedOutUI.Editor
 
         private void AddValueComponent<T>() where T : BaseValueComponent
         {
-            var targetComponent = (BaseCurrentMaxTextComponent)target;
+            var targetComponent = (CurrentMaxTextComponent)target;
             var gameObject = targetComponent.gameObject;
 
             // Store the old component to remove it later
@@ -145,9 +147,9 @@ namespace JacobHomanics.TrickedOutUI.Editor
             // Remove the old component if it's different and not used elsewhere
             if (oldComponent != null && oldComponent != targetComponent.valueComponent)
             {
-                // Check if the old component is used by other BaseCurrentMaxTextComponent instances
+                // Check if the old component is used by other CurrentMaxTextComponent instances
                 bool isUsedElsewhere = false;
-                var allTextComponents = gameObject.GetComponents<BaseCurrentMaxTextComponent>();
+                var allTextComponents = gameObject.GetComponents<CurrentMaxTextComponent>();
                 foreach (var textComp in allTextComponents)
                 {
                     if (textComp != targetComponent && textComp.valueComponent == oldComponent)
@@ -167,7 +169,7 @@ namespace JacobHomanics.TrickedOutUI.Editor
             serializedObject.Update();
         }
 
-        private void DrawFeatureComponentsSection(BaseCurrentMaxTextComponent targetComponent)
+        private void DrawFeatureComponentsSection(CurrentMaxTextComponent targetComponent)
         {
             SerializedProperty featureComponentsProp = serializedObject.FindProperty("_featureComponents");
 
@@ -228,7 +230,7 @@ namespace JacobHomanics.TrickedOutUI.Editor
             menu.ShowAsContext();
         }
 
-        private void ShowFeatureComponentMenu(BaseCurrentMaxTextComponent targetComponent)
+        private void ShowFeatureComponentMenu(CurrentMaxTextComponent targetComponent)
         {
             GenericMenu menu = new GenericMenu();
             menu.AddItem(new GUIContent("Clamp At Zero"), false, () => AddFeatureComponent<ClampAtZeroComponent>());
@@ -290,7 +292,7 @@ namespace JacobHomanics.TrickedOutUI.Editor
 
         private void AddFeatureComponent<T>() where T : BaseTextFeatureComponent
         {
-            var targetComponent = (BaseCurrentMaxTextComponent)target;
+            var targetComponent = (CurrentMaxTextComponent)target;
             var gameObject = targetComponent.gameObject;
 
             // Check if component already exists on the GameObject
@@ -329,7 +331,7 @@ namespace JacobHomanics.TrickedOutUI.Editor
 
         private void RemoveFeatureComponentAt(int index)
         {
-            var targetComponent = (BaseCurrentMaxTextComponent)target;
+            var targetComponent = (CurrentMaxTextComponent)target;
 
             if (index >= 0 && index < targetComponent.featureComponents.Length)
             {
@@ -349,9 +351,9 @@ namespace JacobHomanics.TrickedOutUI.Editor
                 // Remove the component from the GameObject if it's not used by other text components
                 if (componentToRemove != null)
                 {
-                    // Check if this component is used by other BaseCurrentMaxTextComponent instances
+                    // Check if this component is used by other CurrentMaxTextComponent instances
                     bool isUsedElsewhere = false;
-                    var allTextComponents = targetComponent.gameObject.GetComponents<BaseCurrentMaxTextComponent>();
+                    var allTextComponents = targetComponent.gameObject.GetComponents<CurrentMaxTextComponent>();
                     foreach (var textComp in allTextComponents)
                     {
                         if (textComp != targetComponent && System.Array.Exists(textComp.featureComponents, f => f == componentToRemove))

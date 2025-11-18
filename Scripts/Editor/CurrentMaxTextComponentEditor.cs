@@ -72,6 +72,19 @@ namespace JacobHomanics.TrickedOutUI.Editor
 
             EditorGUILayout.Space();
 
+            // Text Field at the top
+            SerializedProperty textProp = serializedObject.FindProperty("text");
+            if (textProp != null)
+            {
+                EditorGUILayout.PropertyField(textProp);
+            }
+            else
+            {
+                EditorGUILayout.HelpBox("Unable to find text field.", MessageType.Warning);
+            }
+
+            EditorGUILayout.Space();
+
             // Value Component Section
             DrawValueComponentSection(targetComponent);
 
@@ -79,11 +92,6 @@ namespace JacobHomanics.TrickedOutUI.Editor
 
             // Feature Components Section
             DrawFeatureComponentsSection(targetComponent);
-
-            EditorGUILayout.Space();
-
-            // Text Field Section
-            DrawTextFieldSection();
 
             serializedObject.ApplyModifiedProperties();
 
@@ -228,20 +236,6 @@ namespace JacobHomanics.TrickedOutUI.Editor
             menu.ShowAsContext();
         }
 
-        private void DrawTextFieldSection()
-        {
-            EditorGUILayout.LabelField("Text", EditorStyles.boldLabel);
-
-            SerializedProperty textProp = serializedObject.FindProperty("text");
-            if (textProp != null)
-            {
-                EditorGUILayout.PropertyField(textProp);
-            }
-            else
-            {
-                EditorGUILayout.HelpBox("Unable to find text field.", MessageType.Warning);
-            }
-        }
 
         private string GetValueComponentName(BaseValueComponent component)
         {

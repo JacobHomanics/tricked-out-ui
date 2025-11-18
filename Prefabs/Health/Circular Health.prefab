@@ -306,7 +306,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   backgroundFillFeature:
     keepSizeConsistent: 1
-    animationSpeed: 10
+    animationSpeed: 150
     speedCurve:
       serializedVersion: 2
       m_Curve:

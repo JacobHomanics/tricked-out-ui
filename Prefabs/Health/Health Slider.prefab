@@ -90,7 +90,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   backgroundFillFeature:
     keepSizeConsistent: 1
-    animationSpeed: 10
+    animationSpeed: 150
     speedCurve:
       serializedVersion: 2
       m_Curve:
@@ -104,8 +104,8 @@ MonoBehaviour:
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
-        time: 1
-        value: 16
+        time: 1.9947968
+        value: 148.08649
         inSlope: 0
         outSlope: 0
         tangentMode: 0

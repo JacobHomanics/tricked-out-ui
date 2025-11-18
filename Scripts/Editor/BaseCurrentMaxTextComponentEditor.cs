@@ -21,6 +21,17 @@ namespace JacobHomanics.TrickedOutUI.Editor
 
             var targetComponent = (BaseCurrentMaxTextComponent)target;
 
+            // Draw only the script reference at the top
+            EditorGUI.BeginDisabledGroup(true);
+            SerializedProperty scriptProp = serializedObject.FindProperty("m_Script");
+            if (scriptProp != null)
+            {
+                EditorGUILayout.PropertyField(scriptProp);
+            }
+            EditorGUI.EndDisabledGroup();
+
+            EditorGUILayout.Space();
+
             // Value Component Section
             DrawValueComponentSection(targetComponent);
 
@@ -33,17 +44,6 @@ namespace JacobHomanics.TrickedOutUI.Editor
 
             // Text Field Section
             DrawTextFieldSection();
-
-            EditorGUILayout.Space();
-
-            // Draw only the script reference
-            EditorGUI.BeginDisabledGroup(true);
-            SerializedProperty scriptProp = serializedObject.FindProperty("m_Script");
-            if (scriptProp != null)
-            {
-                EditorGUILayout.PropertyField(scriptProp);
-            }
-            EditorGUI.EndDisabledGroup();
             
             serializedObject.ApplyModifiedProperties();
         }

@@ -1,11 +1,10 @@
 using UnityEngine;
 using UnityEditor;
-using JacobHomanics.TrickedOutUI;
 
 namespace JacobHomanics.TrickedOutUI.Editor
 {
-    [CustomEditor(typeof(CurrentMaxTextComponent))]
-    public class CurrentMaxTextComponentEditor : UnityEditor.Editor
+    [CustomEditor(typeof(TMP_TextVector2Component))]
+    public class TMP_TextVector2ComponentEditor : UnityEditor.Editor
     {
         private static GUIStyle _headerStyle;
         private static GUIStyle _headerStyleSubtitle;
@@ -55,7 +54,7 @@ namespace JacobHomanics.TrickedOutUI.Editor
         {
             serializedObject.Update();
 
-            var targetComponent = (CurrentMaxTextComponent)target;
+            var targetComponent = (TMP_TextVector2Component)target;
 
             // Store the current feature components array before drawing
             BaseTextFeatureComponent[] previousFeatureComponents = new BaseTextFeatureComponent[targetComponent.featureComponents.Length];
@@ -99,7 +98,7 @@ namespace JacobHomanics.TrickedOutUI.Editor
             CleanupRemovedFeatureComponents(targetComponent, previousFeatureComponents);
         }
 
-        private void DrawValueComponentSection(CurrentMaxTextComponent targetComponent)
+        private void DrawValueComponentSection(TMP_TextVector2Component targetComponent)
         {
             EditorGUILayout.Space();
             EditorGUILayout.BeginHorizontal();
@@ -146,7 +145,7 @@ namespace JacobHomanics.TrickedOutUI.Editor
 
         private void AddValueComponent<T>() where T : BaseValueComponent
         {
-            var targetComponent = (CurrentMaxTextComponent)target;
+            var targetComponent = (TMP_TextVector2Component)target;
             var gameObject = targetComponent.gameObject;
 
             // Store the old component to remove it later
@@ -173,7 +172,7 @@ namespace JacobHomanics.TrickedOutUI.Editor
             {
                 // Check if the old component is used by other CurrentMaxTextComponent instances
                 bool isUsedElsewhere = false;
-                var allTextComponents = gameObject.GetComponents<CurrentMaxTextComponent>();
+                var allTextComponents = gameObject.GetComponents<TMP_TextVector2Component>();
                 foreach (var textComp in allTextComponents)
                 {
                     if (textComp != targetComponent && textComp.valueComponent == oldComponent)
@@ -193,7 +192,7 @@ namespace JacobHomanics.TrickedOutUI.Editor
             serializedObject.Update();
         }
 
-        private void DrawFeatureComponentsSection(CurrentMaxTextComponent targetComponent)
+        private void DrawFeatureComponentsSection(TMP_TextVector2Component targetComponent)
         {
             SerializedProperty featureComponentsProp = serializedObject.FindProperty("_featureComponents");
 
@@ -257,7 +256,7 @@ namespace JacobHomanics.TrickedOutUI.Editor
             menu.ShowAsContext();
         }
 
-        private void ShowFeatureComponentMenu(CurrentMaxTextComponent targetComponent)
+        private void ShowFeatureComponentMenu(TMP_TextVector2Component targetComponent)
         {
             GenericMenu menu = new GenericMenu();
             menu.AddItem(new GUIContent("Clamp At Zero"), false, () => AddFeatureComponent<ClampAtZeroComponent>());
@@ -305,7 +304,7 @@ namespace JacobHomanics.TrickedOutUI.Editor
 
         private void AddFeatureComponent<T>() where T : BaseTextFeatureComponent
         {
-            var targetComponent = (CurrentMaxTextComponent)target;
+            var targetComponent = (TMP_TextVector2Component)target;
             var gameObject = targetComponent.gameObject;
 
             // Check if component already exists on the GameObject
@@ -342,7 +341,7 @@ namespace JacobHomanics.TrickedOutUI.Editor
             serializedObject.Update();
         }
 
-        private void CleanupRemovedFeatureComponents(CurrentMaxTextComponent targetComponent, BaseTextFeatureComponent[] previousComponents)
+        private void CleanupRemovedFeatureComponents(TMP_TextVector2Component targetComponent, BaseTextFeatureComponent[] previousComponents)
         {
             BaseTextFeatureComponent[] currentComponents = targetComponent.featureComponents;
 
@@ -359,7 +358,7 @@ namespace JacobHomanics.TrickedOutUI.Editor
                 {
                     // Component was removed from the array, check if it should be destroyed
                     bool isUsedElsewhere = false;
-                    var allTextComponents = targetComponent.gameObject.GetComponents<CurrentMaxTextComponent>();
+                    var allTextComponents = targetComponent.gameObject.GetComponents<TMP_TextVector2Component>();
                     foreach (var textComp in allTextComponents)
                     {
                         if (textComp != targetComponent && System.Array.Exists(textComp.featureComponents, f => f == previousComponent))
@@ -380,7 +379,7 @@ namespace JacobHomanics.TrickedOutUI.Editor
 
         private void RemoveFeatureComponentAt(int index)
         {
-            var targetComponent = (CurrentMaxTextComponent)target;
+            var targetComponent = (TMP_TextVector2Component)target;
 
             if (index >= 0 && index < targetComponent.featureComponents.Length)
             {
@@ -402,7 +401,7 @@ namespace JacobHomanics.TrickedOutUI.Editor
                 {
                     // Check if this component is used by other CurrentMaxTextComponent instances
                     bool isUsedElsewhere = false;
-                    var allTextComponents = targetComponent.gameObject.GetComponents<CurrentMaxTextComponent>();
+                    var allTextComponents = targetComponent.gameObject.GetComponents<TMP_TextVector2Component>();
                     foreach (var textComp in allTextComponents)
                     {
                         if (textComp != targetComponent && System.Array.Exists(textComp.featureComponents, f => f == componentToRemove))

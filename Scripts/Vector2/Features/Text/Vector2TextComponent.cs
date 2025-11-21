@@ -3,7 +3,7 @@ using TMPro;
 
 namespace JacobHomanics.TrickedOutUI
 {
-    public class CurrentMaxTextComponent : BaseVector2Component
+    public class TMP_TextVector2Component : BaseVector2Component
     {
         [SerializeField] private BaseValueComponent _valueComponent;
         [SerializeField] private BaseTextFeatureComponent[] _featureComponents = new BaseTextFeatureComponent[0];

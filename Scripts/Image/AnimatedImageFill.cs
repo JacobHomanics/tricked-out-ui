@@ -6,7 +6,7 @@ namespace JacobHomanics.TrickedOutUI
     /// <summary>
     /// MonoBehaviour component that handles animated background fill based on value changes.
     /// </summary>
-    public class AnimatedFillImage : BackgroundFillFeatureComponent
+    public class AnimatedImageFill : BackgroundFillFeatureComponent
     {
         public Image image;
 

@@ -6,17 +6,17 @@ namespace JacobHomanics.TrickedOutUI
     /// <summary>
     /// MonoBehaviour component that handles animated background fill based on value changes.
     /// </summary>
-    public abstract class BackgroundFillFeatureComponent : BaseCurrentMaxComponent
+    public abstract class AnimatedFill : BaseCurrentMaxComponent
     {
         [System.Serializable]
-        public class BackgroundFillFeature
+        public class Properties
         {
             [Tooltip("Duration in seconds for the animation to complete")]
             public float animationDuration = 1f;
             public float delay = 0.5f;
         }
 
-        public BackgroundFillFeature backgroundFillFeature;
+        public Properties properties;
 
         protected float previousValue;
 

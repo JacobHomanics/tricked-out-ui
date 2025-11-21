@@ -6,7 +6,7 @@ namespace JacobHomanics.TrickedOutUI
     /// <summary>
     /// MonoBehaviour component that handles animated background fill based on value changes.
     /// </summary>
-    public class AnimatedImageFill : BackgroundFillFeatureComponent
+    public class AnimatedImageFill : AnimatedFill
     {
         public Image image;
 
@@ -18,7 +18,7 @@ namespace JacobHomanics.TrickedOutUI
 
         void Update()
         {
-            image.fillAmount = HandleValueChange(Current, image.fillAmount, ref previousValue, Max, backgroundFillFeature.delay, backgroundFillFeature.animationDuration);
+            image.fillAmount = HandleValueChange(Current, image.fillAmount, ref previousValue, Max, properties.delay, properties.animationDuration);
             image.fillAmount = UpdateAnimation(image.fillAmount, Max);
         }
 

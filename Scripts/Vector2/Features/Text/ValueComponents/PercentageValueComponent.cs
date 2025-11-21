@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace JacobHomanics.TrickedOutUI
 {
-    public class CurrentPercentageValueComponent : BaseValueComponent
+    public class PercentageValueComponent : BaseValueComponent
     {
         public override float GetValue(Vector2 vector)
         {

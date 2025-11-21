@@ -251,7 +251,7 @@ namespace JacobHomanics.TrickedOutUI.Editor
             menu.AddItem(new GUIContent("X"), false, () => AddValueComponent<CurrentValueComponent>());
             menu.AddItem(new GUIContent("Y"), false, () => AddValueComponent<MaxValueComponent>());
             menu.AddItem(new GUIContent("Difference"), false, () => AddValueComponent<DifferenceValueComponent>());
-            menu.AddItem(new GUIContent("Percentage"), false, () => AddValueComponent<CurrentPercentageValueComponent>());
+            menu.AddItem(new GUIContent("Percentage"), false, () => AddValueComponent<PercentageValueComponent>());
             menu.ShowAsContext();
         }
 
@@ -277,7 +277,7 @@ namespace JacobHomanics.TrickedOutUI.Editor
                 return "Y";
             else if (component is DifferenceValueComponent)
                 return "Difference";
-            else if (component is CurrentPercentageValueComponent)
+            else if (component is PercentageValueComponent)
                 return "Percentage";
             else
                 return component.GetType().Name;

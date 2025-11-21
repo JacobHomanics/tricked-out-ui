@@ -69,7 +69,7 @@ namespace JacobHomanics.TrickedOutUI
             var finalValueStringRaw = finalValue.ToString(format);
 
             // Check if this is a percentage value component and handle formatting
-            bool isPercentage = valueComponent is CurrentPercentageValueComponent;
+            bool isPercentage = valueComponent is PercentageValueComponent;
             EncloseInBracesComponent encloseInBracesComponent = System.Array.Find(featureComponents, f => f is EncloseInBracesComponent) as EncloseInBracesComponent;
             bool encloseInBraces = encloseInBracesComponent != null;
 

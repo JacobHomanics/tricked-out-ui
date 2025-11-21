@@ -11,9 +11,15 @@ namespace JacobHomanics.TrickedOutUI
         [System.Serializable]
         public class Properties
         {
-            [Tooltip("Duration in seconds for the animation to complete")]
-            public float animationDuration = 1f;
-            public float delay = 0.5f;
+            [Tooltip("Duration in seconds for the animation to complete when value increases")]
+            public float animationDurationUp = 1f;
+            [Tooltip("Delay in seconds before animation starts when value increases")]
+            public float delayUp = 0.5f;
+            [Tooltip("Duration in seconds for the animation to complete when value decreases")]
+            public float animationDurationDown = 1f;
+
+            [Tooltip("Delay in seconds before animation starts when value decreases")]
+            public float delayDown = 0.5f;
         }
 
         public Properties properties;
@@ -22,12 +28,12 @@ namespace JacobHomanics.TrickedOutUI
 
         protected bool isAnimating = false;
         protected float animationFromValue;
-        protected float animationToValue;
+        public float animationToValue { get; set; }
         protected float animationElapsed;
         protected float animationDuration;
-        protected float animationDelayRemaining;
+        public float animationDelayRemaining { get; set; }
 
-        public float HandleValueChange(float newValue, float fillAmount, ref float previousValue, float max, float delay, float duration)
+        public float HandleValueChange(float newValue, float fillAmount, ref float previousValue, float max)
         {
             if (Mathf.Abs(newValue - previousValue) < 0.001f)
                 return fillAmount;
@@ -76,6 +82,11 @@ namespace JacobHomanics.TrickedOutUI
 
                 startValue = currentFillValue;
             }
+
+            // Determine direction and select appropriate duration and delay
+            bool isGoingUp = newValue > startValue;
+            float duration = isGoingUp ? properties.animationDurationUp : properties.animationDurationDown;
+            float delay = isGoingUp ? properties.delayUp : properties.delayDown;
 
             // Set up animation state
             StartAnimation(startValue, newValue, max, delay, duration, ref fillAmount);

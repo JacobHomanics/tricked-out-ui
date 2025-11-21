@@ -248,8 +248,8 @@ namespace JacobHomanics.TrickedOutUI.Editor
         private void ShowValueComponentMenu()
         {
             GenericMenu menu = new GenericMenu();
-            menu.AddItem(new GUIContent("Current"), false, () => AddValueComponent<CurrentValueComponent>());
-            menu.AddItem(new GUIContent("Max"), false, () => AddValueComponent<MaxValueComponent>());
+            menu.AddItem(new GUIContent("X"), false, () => AddValueComponent<CurrentValueComponent>());
+            menu.AddItem(new GUIContent("Y"), false, () => AddValueComponent<MaxValueComponent>());
             menu.AddItem(new GUIContent("Difference"), false, () => AddValueComponent<DifferenceValueComponent>());
             menu.AddItem(new GUIContent("Percentage"), false, () => AddValueComponent<CurrentPercentageValueComponent>());
             menu.ShowAsContext();
@@ -259,7 +259,7 @@ namespace JacobHomanics.TrickedOutUI.Editor
         {
             GenericMenu menu = new GenericMenu();
             menu.AddItem(new GUIContent("Clamp At Zero"), false, () => AddFeatureComponent<ClampAtZeroComponent>());
-            menu.AddItem(new GUIContent("Clamp At Max"), false, () => AddFeatureComponent<ClampAtMaxComponent>());
+            menu.AddItem(new GUIContent("Clamp At Y"), false, () => AddFeatureComponent<ClampAtMaxComponent>());
             menu.AddItem(new GUIContent("Ceil"), false, () => AddFeatureComponent<CeilComponent>());
             menu.AddItem(new GUIContent("Floor"), false, () => AddFeatureComponent<FloorComponent>());
             menu.AddItem(new GUIContent("Enclose In Braces"), false, () => AddFeatureComponent<EncloseInBracesComponent>());
@@ -272,9 +272,9 @@ namespace JacobHomanics.TrickedOutUI.Editor
         private string GetValueComponentName(BaseValueComponent component)
         {
             if (component is CurrentValueComponent)
-                return "Current";
+                return "X";
             else if (component is MaxValueComponent)
-                return "Max";
+                return "Y";
             else if (component is DifferenceValueComponent)
                 return "Difference";
             else if (component is CurrentPercentageValueComponent)
@@ -288,7 +288,7 @@ namespace JacobHomanics.TrickedOutUI.Editor
             if (component is ClampAtZeroComponent)
                 return "Clamp At Zero";
             else if (component is ClampAtMaxComponent)
-                return "Clamp At Max";
+                return "Clamp At Y";
             else if (component is CeilComponent)
                 return "Ceil";
             else if (component is FloorComponent)

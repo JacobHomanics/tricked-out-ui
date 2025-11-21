@@ -248,8 +248,8 @@ namespace JacobHomanics.TrickedOutUI.Editor
         private void ShowValueComponentMenu()
         {
             GenericMenu menu = new GenericMenu();
-            menu.AddItem(new GUIContent("X"), false, () => AddValueComponent<CurrentValueComponent>());
-            menu.AddItem(new GUIContent("Y"), false, () => AddValueComponent<MaxValueComponent>());
+            menu.AddItem(new GUIContent("X"), false, () => AddValueComponent<XValueComponent>());
+            menu.AddItem(new GUIContent("Y"), false, () => AddValueComponent<YValueComponent>());
             menu.AddItem(new GUIContent("Difference"), false, () => AddValueComponent<DifferenceValueComponent>());
             menu.AddItem(new GUIContent("Percentage"), false, () => AddValueComponent<PercentageValueComponent>());
             menu.ShowAsContext();
@@ -271,9 +271,9 @@ namespace JacobHomanics.TrickedOutUI.Editor
 
         private string GetValueComponentName(BaseValueComponent component)
         {
-            if (component is CurrentValueComponent)
+            if (component is XValueComponent)
                 return "X";
-            else if (component is MaxValueComponent)
+            else if (component is YValueComponent)
                 return "Y";
             else if (component is DifferenceValueComponent)
                 return "Difference";

@@ -71,6 +71,14 @@ namespace JacobHomanics.TrickedOutUI.Editor
 
             EditorGUILayout.Space();
 
+            // Vector2 Adapter Field
+            SerializedProperty adapterProp = serializedObject.FindProperty("vector2Adapter");
+            if (adapterProp != null)
+            {
+                EditorGUILayout.PropertyField(adapterProp);
+            }
+
+
             // Text Field at the top
             SerializedProperty textProp = serializedObject.FindProperty("text");
             if (textProp != null)
@@ -170,7 +178,7 @@ namespace JacobHomanics.TrickedOutUI.Editor
             // Remove the old component if it's different and not used elsewhere
             if (oldComponent != null && oldComponent != targetComponent.valueComponent)
             {
-                // Check if the old component is used by other CurrentMaxTextComponent instances
+                // Check if the old component is used by other TMP_TextVector2Component instances
                 bool isUsedElsewhere = false;
                 var allTextComponents = gameObject.GetComponents<TMP_TextVector2Component>();
                 foreach (var textComp in allTextComponents)
@@ -399,7 +407,7 @@ namespace JacobHomanics.TrickedOutUI.Editor
                 // Remove the component from the GameObject if it's not used by other text components
                 if (componentToRemove != null)
                 {
-                    // Check if this component is used by other CurrentMaxTextComponent instances
+                    // Check if this component is used by other TMP_TextVector2Component instances
                     bool isUsedElsewhere = false;
                     var allTextComponents = targetComponent.gameObject.GetComponents<TMP_TextVector2Component>();
                     foreach (var textComp in allTextComponents)

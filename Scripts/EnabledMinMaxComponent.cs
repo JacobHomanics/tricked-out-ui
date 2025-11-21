@@ -23,7 +23,7 @@ namespace JacobHomanics.TrickedOutUI
 
         void Update()
         {
-            monoBehaviour.enabled = IsEnabled(thresholdType, Current, Max, thresholdPercent);
+            monoBehaviour.enabled = IsEnabled(thresholdType, X, Y, thresholdPercent);
         }
 
         public static bool IsEnabled(ThresholdType thresholdType, float current, float max, float thresholdPercent)

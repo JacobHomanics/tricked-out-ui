@@ -7,8 +7,8 @@ namespace JacobHomanics.TrickedOutUI
         public Slider slider;
         void Update()
         {
-            slider.value = Current;
-            slider.maxValue = Max;
+            slider.value = X;
+            slider.maxValue = Y;
         }
     }
 }

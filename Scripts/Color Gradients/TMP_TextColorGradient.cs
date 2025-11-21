@@ -1,7 +1,3 @@
-using UnityEngine;
-using UnityEngine.UI;
-using System.Collections.Generic;
-using System.Linq;
 using TMPro;
 
 namespace JacobHomanics.TrickedOutUI
@@ -10,7 +6,7 @@ namespace JacobHomanics.TrickedOutUI
     /// MonoBehaviour component that applies a color gradient to an image based on current and max values.
     /// Supports an arbitrary list of colors and thresholds.
     /// </summary>
-    public class ColorGradientTMP_Text : ColorGradientFeatureComponent
+    public class TMP_TextColorGradient : BaseColorGradient
     {
         public TMP_Text text;
 

@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -26,7 +25,7 @@ namespace JacobHomanics.TrickedOutUI
     /// MonoBehaviour component that applies a color gradient to an image based on current and max values.
     /// Supports an arbitrary list of colors and thresholds.
     /// </summary>
-    public abstract class ColorGradientFeatureComponent : BaseCurrentMaxComponent
+    public abstract class BaseColorGradient : BaseCurrentMaxComponent
     {
 
         [Tooltip("List of color stops defining the gradient. Thresholds should be between 0.0 and 100.0, and will be automatically sorted.")]
@@ -39,7 +38,7 @@ namespace JacobHomanics.TrickedOutUI
 
         protected Color HandleColor()
         {
-            return CalculateColor(colorStops, Current, Max);
+            return CalculateColor(colorStops, X, Y);
         }
 
         public Color CalculateColor(List<ColorStop> colorStops, float current, float max)

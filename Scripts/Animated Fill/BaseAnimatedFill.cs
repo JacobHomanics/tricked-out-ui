@@ -32,28 +32,43 @@ namespace JacobHomanics.TrickedOutUI
             if (Mathf.Abs(newValue - previousValue) < 0.001f)
                 return fillAmount;
 
-            // Get the current background fill value
-            float currentFillValue = GetFillValue(fillAmount, max);
-
-            // Check if background fill needs initialization (is at or near 0, indicating uninitialized)
-            // Only initialize if it's truly uninitialized, not just different
-            if (currentFillValue < 0.01f * max)
+            // If already animating to the same target, don't restart
+            if (isAnimating && Mathf.Abs(animationToValue - newValue) < 0.001f)
             {
-                // Background fill appears uninitialized, initialize it to previousValue
-                fillAmount = Normalize(previousValue, max);
-                currentFillValue = previousValue;
+                previousValue = newValue;
+                return fillAmount;
             }
 
-            // Get the starting value based on whether we want to keep size consistent
-            float startValue = currentFillValue;
+            // If already animating (including during delay), use the stored starting value
+            // to avoid recalculating from fillAmount which might have drifted
+            float startValue;
+            if (isAnimating)
+            {
+                startValue = animationFromValue;
+            }
+            else
+            {
+                // Get the current background fill value
+                float currentFillValue = GetFillValue(fillAmount, max);
+
+                // Check if background fill needs initialization (is at or near 0, indicating uninitialized)
+                // Only initialize if it's truly uninitialized, not just different
+                if (currentFillValue < 0.01f * max)
+                {
+                    // Background fill appears uninitialized, initialize it to previousValue
+                    currentFillValue = previousValue;
+                }
+
+                startValue = currentFillValue;
+            }
 
             // Set up animation state
-            var fa = fillAmount;
-            StartAnimation(startValue, newValue, max, delay, duration, ref fa);
-            fillAmount = fa;
+            StartAnimation(startValue, newValue, max, delay, duration, ref fillAmount);
 
             previousValue = newValue;
-            return fillAmount;
+            // Return the exact starting value to prevent any visible change before delay
+            // UpdateAnimation will maintain this value during the delay
+            return Normalize(animationFromValue, max);
         }
         public void StartAnimation(float fromValue, float toValue, float max, float delay, float duration, ref float fillAmount)
         {
@@ -81,10 +96,13 @@ namespace JacobHomanics.TrickedOutUI
                 return fillAmount;
 
             // Handle delay before animation starts
+            // During delay, maintain fillAmount at the exact starting value
+            // This ensures no drift occurs during the delay period
             if (animationDelayRemaining > 0f)
             {
                 animationDelayRemaining -= Time.deltaTime;
-                return fillAmount;
+                // Always return the exact starting value during delay
+                return Normalize(animationFromValue, max);
             }
 
             // If duration is 0, complete animation immediately after delay

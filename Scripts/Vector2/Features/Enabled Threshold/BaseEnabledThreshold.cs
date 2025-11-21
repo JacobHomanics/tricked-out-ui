@@ -7,7 +7,7 @@ namespace JacobHomanics.TrickedOutUI
     /// <summary>
     /// MonoBehaviour component that creates a flashing effect when a value falls below a threshold.
     /// </summary>
-    public class BaseEnabledThreshold : BaseVector2Component
+    public abstract class BaseEnabledThreshold : BaseVector2Component
     {
         [Range(0f, 100f)]
         public float thresholdPercent = 20f;

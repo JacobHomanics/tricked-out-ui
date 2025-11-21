@@ -5,13 +5,13 @@ namespace JacobHomanics.TrickedOutUI
     /// <summary>
     /// MonoBehaviour component that creates a flashing effect when a value falls below a threshold.
     /// </summary>
-    public class EnabledThreshold : BaseEnabledThreshold
+    public class MonoBehaviourEnabledThreshold : BaseEnabledThreshold
     {
-        public MonoBehaviour monoBehaviour;
+        public MonoBehaviour obj;
 
         void Update()
         {
-            monoBehaviour.enabled = IsEnabled();
+            obj.enabled = IsEnabled();
         }
     }
 }

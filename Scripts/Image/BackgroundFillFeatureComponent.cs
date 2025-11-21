@@ -12,9 +12,8 @@ namespace JacobHomanics.TrickedOutUI
         public class BackgroundFillFeature
         {
             public bool keepSizeConsistent = true;
-            public float animationSpeed = 1;
-            [Tooltip("Maps normalized change magnitude (0-1) to speed multiplier. X-axis = change magnitude, Y-axis = speed multiplier. Higher values = faster animation for large changes.")]
-            public AnimationCurve speedMultiplierCurve = AnimationCurve.EaseInOut(0f, 0.3f, 1f, 3f);
+            [Tooltip("Duration in seconds for the animation to complete")]
+            public float animationDuration = 1f;
             public float delay = 0.5f;
         }
 
@@ -29,7 +28,7 @@ namespace JacobHomanics.TrickedOutUI
         protected float animationDuration;
         protected float animationDelayRemaining;
 
-        public float HandleValueChange(float newValue, float fillAmount, bool keepSizeConsistent, ref float previousValue, float max, float delay, AnimationCurve speedMultiplierCurve, float animationSpeed)
+        public float HandleValueChange(float newValue, float fillAmount, bool keepSizeConsistent, ref float previousValue, float max, float delay, float duration)
         {
             if (Mathf.Abs(newValue - previousValue) < 0.001f)
                 return fillAmount;
@@ -62,13 +61,13 @@ namespace JacobHomanics.TrickedOutUI
 
             // Set up animation state
             var fa = fillAmount;
-            StartAnimation(startValue, newValue, max, delay, speedMultiplierCurve, animationSpeed, ref fa);
+            StartAnimation(startValue, newValue, max, delay, duration, ref fa);
             fillAmount = fa;
 
             previousValue = newValue;
             return fillAmount;
         }
-        public void StartAnimation(float fromValue, float toValue, float max, float delay, AnimationCurve curve, float speed, ref float fillAmount)
+        public void StartAnimation(float fromValue, float toValue, float max, float delay, float duration, ref float fillAmount)
         {
             float valueDifference = Mathf.Abs(fromValue - toValue);
             if (valueDifference < 0.001f)
@@ -79,18 +78,13 @@ namespace JacobHomanics.TrickedOutUI
             }
 
             // Initialize animation state
+            // Even if duration is 0, we still need to set up animation to handle delay
             isAnimating = true;
             animationFromValue = fromValue;
             animationToValue = toValue;
             animationElapsed = 0f;
             animationDelayRemaining = delay;
-
-            // Calculate dynamic animation speed based on difference
-            // Speed is in "normalized units per second", so we scale by max to get absolute units per second
-            float normalizedDifference = valueDifference / max;
-            float speedMultiplier = curve.Evaluate(normalizedDifference);
-            float dynamicSpeed = speed * speedMultiplier * max;
-            animationDuration = valueDifference / dynamicSpeed;
+            animationDuration = Mathf.Max(0f, duration); // Ensure non-negative
         }
 
         public float UpdateAnimation(float fillAmount, float max)
@@ -102,6 +96,14 @@ namespace JacobHomanics.TrickedOutUI
             if (animationDelayRemaining > 0f)
             {
                 animationDelayRemaining -= Time.deltaTime;
+                return fillAmount;
+            }
+
+            // If duration is 0, complete animation immediately after delay
+            if (animationDuration <= 0f)
+            {
+                fillAmount = Normalize(animationToValue, max);
+                isAnimating = false;
                 return fillAmount;
             }
 

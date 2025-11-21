@@ -36,7 +36,7 @@ namespace JacobHomanics.TrickedOutUI
             new(Color.green, 100f)
         };
 
-        protected Color HandleColor()
+        protected Color CalculateColor()
         {
             return CalculateColor(colorStops, X, Y);
         }

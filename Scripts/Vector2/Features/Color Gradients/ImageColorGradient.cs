@@ -12,7 +12,7 @@ namespace JacobHomanics.TrickedOutUI
 
         void Update()
         {
-            image.color = HandleColor();
+            image.color = CalculateColor();
         }
 
         public void Reset()

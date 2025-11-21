@@ -12,7 +12,7 @@ namespace JacobHomanics.TrickedOutUI
 
         void Update()
         {
-            text.color = HandleColor();
+            text.color = CalculateColor();
         }
 
         void Reset()

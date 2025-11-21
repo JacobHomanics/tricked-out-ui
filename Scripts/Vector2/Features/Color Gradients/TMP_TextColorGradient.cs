@@ -14,6 +14,12 @@ namespace JacobHomanics.TrickedOutUI
         {
             text.color = HandleColor();
         }
+
+        void Reset()
+        {
+            if (!text)
+                text = GetComponent<TMP_Text>();
+        }
     }
 }
 

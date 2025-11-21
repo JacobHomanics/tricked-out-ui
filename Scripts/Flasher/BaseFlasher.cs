@@ -9,11 +9,11 @@ namespace JacobHomanics.TrickedOutUI
     {
         public Color flashColor1 = Color.red;
         public Color flashColor2 = Color.white;
-        public float flashSpeed = 15f;
+        public float flashDuration = 0.4f;
 
-        public static Color CalcColor(float flashSpeed, Color flashColor1, Color flashColor2)
+        public static Color CalcColor(float flashDuration, Color flashColor1, Color flashColor2)
         {
-            float flashValue = Mathf.Sin(Time.time * flashSpeed) * 0.5f + 0.5f;
+            float flashValue = Mathf.Sin(Time.time * Mathf.PI * 2 / flashDuration) * 0.5f + 0.5f;
             Color flashColor = Color.Lerp(flashColor1, flashColor2, flashValue);
             return flashColor;
         }

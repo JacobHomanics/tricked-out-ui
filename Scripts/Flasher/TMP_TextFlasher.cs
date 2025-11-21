@@ -11,7 +11,7 @@ namespace JacobHomanics.TrickedOutUI
 
         void Update()
         {
-            text.color = CalcColor(flashSpeed, flashColor1, flashColor2);
+            text.color = CalcColor(flashDuration, flashColor1, flashColor2);
         }
 
         void Reset()

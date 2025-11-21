@@ -11,7 +11,6 @@ namespace JacobHomanics.TrickedOutUI
         [System.Serializable]
         public class BackgroundFillFeature
         {
-            public bool keepSizeConsistent = true;
             [Tooltip("Duration in seconds for the animation to complete")]
             public float animationDuration = 1f;
             public float delay = 0.5f;
@@ -28,7 +27,7 @@ namespace JacobHomanics.TrickedOutUI
         protected float animationDuration;
         protected float animationDelayRemaining;
 
-        public float HandleValueChange(float newValue, float fillAmount, bool keepSizeConsistent, ref float previousValue, float max, float delay, float duration)
+        public float HandleValueChange(float newValue, float fillAmount, ref float previousValue, float max, float delay, float duration)
         {
             if (Mathf.Abs(newValue - previousValue) < 0.001f)
                 return fillAmount;
@@ -46,18 +45,7 @@ namespace JacobHomanics.TrickedOutUI
             }
 
             // Get the starting value based on whether we want to keep size consistent
-            float startValue;
-            if (keepSizeConsistent)
-            {
-                // Use current background fill position (continues from where it is)
-                startValue = currentFillValue;
-            }
-            else
-            {
-                // Reset to previous value (starts from previous slider value)
-                startValue = previousValue;
-                fillAmount = Normalize(previousValue, max);
-            }
+            float startValue = currentFillValue;
 
             // Set up animation state
             var fa = fillAmount;

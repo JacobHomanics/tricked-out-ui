@@ -1,10 +1,12 @@
+using UnityEngine;
+
 namespace JacobHomanics.TrickedOutUI
 {
     public class CurrentValueComponent : BaseValueComponent
     {
-        public override float GetValue(float current, float max)
+        public override float GetValue(Vector2 vector)
         {
-            return current;
+            return vector.x;
         }
     }
 }

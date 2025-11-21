@@ -1,8 +1,10 @@
+using UnityEngine;
+
 namespace JacobHomanics.TrickedOutUI
 {
-    public abstract class BaseValueComponent : BaseVector2Component
+    public abstract class BaseValueComponent : MonoBehaviour
     {
-        public abstract float GetValue(float current, float max);
+        public abstract float GetValue(Vector2 vector);
     }
 }
 

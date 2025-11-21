@@ -1,10 +1,12 @@
+using UnityEngine;
+
 namespace JacobHomanics.TrickedOutUI
 {
     public class DifferenceValueComponent : BaseValueComponent
     {
-        public override float GetValue(float current, float max)
+        public override float GetValue(Vector2 vector)
         {
-            return max - current;
+            return vector.y - vector.x;
         }
     }
 }

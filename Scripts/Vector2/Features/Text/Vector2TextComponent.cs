@@ -95,7 +95,7 @@ namespace JacobHomanics.TrickedOutUI
 
         void Update()
         {
-            float value = valueComponent.GetValue(X, Y);
+            float value = valueComponent.GetValue(new Vector2(X, Y));
             float processedValue = ProcessValue(value, Y);
             SetText(processedValue);
         }

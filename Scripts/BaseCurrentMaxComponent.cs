@@ -4,7 +4,9 @@ namespace JacobHomanics.TrickedOutUI
 {
     public abstract class BaseCurrentMaxComponent : MonoBehaviour
     {
-        public float Current => GetComponentInParent<BaseCurrentMaxConnector>().CurrentNum;
-        public float Max => GetComponentInParent<BaseCurrentMaxConnector>().MaxNum;
+        public BaseCurrentMaxConnector currentMaxComponent;
+
+        public float Current => currentMaxComponent.CurrentNum;
+        public float Max => currentMaxComponent.MaxNum;
     }
 }

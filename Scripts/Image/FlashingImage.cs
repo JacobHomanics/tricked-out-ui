@@ -9,11 +9,17 @@ namespace JacobHomanics.TrickedOutUI
     /// </summary>
     public class FlashingImage : FlashingFeatureComponent
     {
-        public Image flashImage;
+        public Image image;
 
         void Update()
         {
-            flashImage.color = CalcColor(flashSpeed, flashColor1, flashColor2);
+            image.color = CalcColor(flashSpeed, flashColor1, flashColor2);
+        }
+
+        public void Reset()
+        {
+            if (!image)
+                image = GetComponent<Image>();
         }
     }
 }

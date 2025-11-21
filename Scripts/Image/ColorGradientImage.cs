@@ -17,6 +17,12 @@ namespace JacobHomanics.TrickedOutUI
         {
             image.color = HandleColor();
         }
+
+        public void Reset()
+        {
+            if (!image)
+                image = GetComponent<Image>();
+        }
     }
 }
 

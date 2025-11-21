@@ -15,7 +15,7 @@ namespace JacobHomanics.TrickedOutUI
             public float animationSpeed = 1;
             [Tooltip("Maps normalized change magnitude (0-1) to speed multiplier. X-axis = change magnitude, Y-axis = speed multiplier. Higher values = faster animation for large changes.")]
             public AnimationCurve speedMultiplierCurve = AnimationCurve.EaseInOut(0f, 0.3f, 1f, 3f);
-            public float delay = 1f;
+            public float delay = 0.5f;
         }
 
         public BackgroundFillFeature backgroundFillFeature;
@@ -35,7 +35,7 @@ namespace JacobHomanics.TrickedOutUI
                 return fillAmount;
 
             // Get the current background fill value
-            float currentFillValue = GetBackgroundFillValue(fillAmount, max);
+            float currentFillValue = GetFillValue(fillAmount, max);
 
             // Check if background fill needs initialization (is at or near 0, indicating uninitialized)
             // Only initialize if it's truly uninitialized, not just different
@@ -60,27 +60,15 @@ namespace JacobHomanics.TrickedOutUI
                 fillAmount = Normalize(previousValue, max);
             }
 
-            // If new value is greater than start position, immediately snap to it
-            if (newValue > startValue)
-            {
-                // Stop any ongoing animation
-                isAnimating = false;
-                // Immediately set to new value
-                fillAmount = Normalize(newValue, max);
-            }
-            else
-            {
-                // HP goes down or stays same - animate from start position
-                // Set up animation state
-                var fa = fillAmount;
-                StartBackgroundFillAnimation(startValue, newValue, max, delay, speedMultiplierCurve, animationSpeed, ref fa);
-                fillAmount = fa;
-            }
+            // Set up animation state
+            var fa = fillAmount;
+            StartAnimation(startValue, newValue, max, delay, speedMultiplierCurve, animationSpeed, ref fa);
+            fillAmount = fa;
 
             previousValue = newValue;
             return fillAmount;
         }
-        public void StartBackgroundFillAnimation(float fromValue, float toValue, float max, float delay, AnimationCurve curve, float speed, ref float fillAmount)
+        public void StartAnimation(float fromValue, float toValue, float max, float delay, AnimationCurve curve, float speed, ref float fillAmount)
         {
             float valueDifference = Mathf.Abs(fromValue - toValue);
             if (valueDifference < 0.001f)
@@ -101,11 +89,11 @@ namespace JacobHomanics.TrickedOutUI
             // Speed is in "normalized units per second", so we scale by max to get absolute units per second
             float normalizedDifference = valueDifference / max;
             float speedMultiplier = curve.Evaluate(normalizedDifference);
-            float dynamicSpeed = (speed * speedMultiplier) * max;
+            float dynamicSpeed = speed * speedMultiplier * max;
             animationDuration = valueDifference / dynamicSpeed;
         }
 
-        public float UpdateBackgroundFillAnimation(float fillAmount, float max)
+        public float UpdateAnimation(float fillAmount, float max)
         {
             if (!isAnimating)
                 return fillAmount;
@@ -139,7 +127,7 @@ namespace JacobHomanics.TrickedOutUI
             return amount / max;
         }
 
-        public static float GetBackgroundFillValue(float fillAmount, float max)
+        public static float GetFillValue(float fillAmount, float max)
         {
             return fillAmount * max;
         }

@@ -21,6 +21,12 @@ namespace JacobHomanics.TrickedOutUI
         {
             return current / max;
         }
+
+        public void Reset()
+        {
+            if (!image)
+                image = GetComponent<Image>();
+        }
     }
 
 }

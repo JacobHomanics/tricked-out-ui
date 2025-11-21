@@ -11,8 +11,13 @@ namespace JacobHomanics.TrickedOutUI
 
         void Update()
         {
-            // text.enabled = IsEnabled(thresholdType, Current, Max, thresholdPercent);
             text.color = CalcColor(flashSpeed, flashColor1, flashColor2);
+        }
+
+        void Reset()
+        {
+            if (!text)
+                text = GetComponent<TMP_Text>();
         }
     }
 }

@@ -41,15 +41,6 @@ namespace JacobHomanics.TrickedOutUI.Editor
             }
         }
 
-
-        public enum ValueComponentType
-        {
-            Current,
-            Max,
-            Difference,
-            CurrentPercentage
-        }
-
         public override void OnInspectorGUI()
         {
             serializedObject.Update();

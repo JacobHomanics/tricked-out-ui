@@ -6,7 +6,7 @@ namespace JacobHomanics.TrickedOutUI
     /// <summary>
     /// MonoBehaviour component that handles animated background fill based on value changes.
     /// </summary>
-    public abstract class BaseAnimatedFill : BaseCurrentMaxComponent
+    public abstract class BaseAnimatedFill : BaseVector2Component
     {
         [System.Serializable]
         public class Properties

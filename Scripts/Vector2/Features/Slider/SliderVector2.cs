@@ -2,7 +2,7 @@ using UnityEngine.UI;
 
 namespace JacobHomanics.TrickedOutUI
 {
-    public class FillSliderFeatureComponent : BaseCurrentMaxComponent
+    public class SliderVector2 : BaseVector2Component
     {
         public Slider slider;
         void Update()

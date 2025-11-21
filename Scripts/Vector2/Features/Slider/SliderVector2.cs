@@ -10,5 +10,11 @@ namespace JacobHomanics.TrickedOutUI
             slider.value = X;
             slider.maxValue = Y;
         }
+
+        void Reset()
+        {
+            if (!slider)
+                slider = GetComponent<Slider>();
+        }
     }
 }

@@ -99,5 +99,11 @@ namespace JacobHomanics.TrickedOutUI
             float processedValue = ProcessValue(value, Y);
             SetText(processedValue);
         }
+
+        void Reset()
+        {
+            if (!text)
+                text = GetComponent<TMP_Text>();
+        }
     }
 }
